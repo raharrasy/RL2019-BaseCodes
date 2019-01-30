@@ -23,11 +23,11 @@ We also require your returns to be in a specific format. For your state values, 
 `{(1, 3): 0, (3, 0): 0, (2, 1): 0, (0, 3): 0, (4, 0): 0, (1, 2): 0, (3, 3): 0, (4, 4): 0, (2, 2): 0, (4, 1): 0, (1, 1): 0, 'OUT': 0, (3, 2): 0, (0, 0): 0, (0, 4): 0, (1, 4): 0, (2, 3): 0, (4, 2): 0, (1, 0): 0, (0, 1): 0, 'GOAL': 0, (3, 1): 0, (2, 4): 0, (2, 0): 0, (4, 3): 0, (3, 4): 0, (0, 2): 0}`
 
 We also require you to output dictionaries for the policy. However, the values are now lists and no longer scalars. This is done since there might be actions which results in the same next state expected values when taken at a certain state. In such cases, we require you to specify all actions following this following order :
-	-. `"DRIBBLE_UP"`
-	-. `"DRIBBLE_DOWN"`
-	-. `"DRIBBLE_LEFT"`
-	-. `"DRIBBLE_RIGHT"`
-	-. `"SHOOT"`
+..* `"DRIBBLE_UP"`
+..* `"DRIBBLE_DOWN"`
+..* `"DRIBBLE_LEFT"`
+..* `"DRIBBLE_RIGHT"`
+..* `"SHOOT"`
 
 As an example, a policy where all states have an optimal action of `"DRIBBLE_UP"` and `"SHOOT"`, except `(1,2)` which optimal action is only `"SHOOT"`, will be represented as :
 
