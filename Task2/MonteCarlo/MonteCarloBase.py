@@ -29,4 +29,26 @@ class MonteCarloAgent(Agent):
 
 if __name__ == '__main__':
 
-	raise NotImplementedError
+	#Init Connections to HFO Server
+	hfoEnv = HFOAttackingPlayer(numOpponents = args.numOpponents, numTeammates = args.numTeammates, agentId = args.id)
+	hfoEnv.connectToServer()
+
+	# Initialize a Monte-Carlo Agent
+	agent = MonteCarloAgent(discountFactor = 0.99, epsilon = 1.0)
+	numEpisodes = 10
+
+	# Run training Monte Carlo Method
+	for episode in range(numEpisodes):	
+		agent.reset()
+		observation = hfoEnv.reset()
+		status = 0
+
+		while status==0:
+			obsCopy = observation.copy()
+			agent.setState(agent.toStateRepresentation(obsCopy))
+			action = agent.act()
+			nextObservation, reward, done, status = hfoEnv.step(action)
+			agent.setExperience(agent.toStateRepresentation(obsCopy), action, reward, status, agent.toStateRepresentation(nextObservation))
+			observation = nextObservation
+
+		agent.learn()

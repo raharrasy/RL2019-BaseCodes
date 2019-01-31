@@ -36,6 +36,27 @@ class QLearningBase(Agent):
 		raise NotImplementedError
 
 if __name__ == '__main__':
-	raise NotImplementedError
+	# Initialize connection with the HFO server
+	hfoEnv = HFOAttackingPlayer(numOpponents = args.numOpponents, numTeammates = args.numTeammates, agentId = args.id)
+	hfoEnv.connectToServer()
 
+	# Initialize a Q-Learning Agent
+	agent = QLearningAgent(learningRate = 0.1, discountFactor = 0.99, epsilon = 1.0)
+	numEpisodes = args.numEpisodes
+
+	# Run training using Q-Learning
+	for episode in range(numEpisodes):
+		status = 0
+		observation = hfoEnv.reset()
+		
+		while status==0:
+			obsCopy = observation.copy()
+			agent.setState(agent.toStateRepresentation(obsCopy))
+			action = agent.act()
+			
+			nextObservation, reward, done, status = hfoEnv.step(action)
+			agent.setExperience(agent.toStateRepresentation(obsCopy), action, reward, status, agent.toStateRepresentation(nextObservation))
+			update = agent.learn()
+			
+			observation = nextObservation
 	
