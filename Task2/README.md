@@ -15,7 +15,7 @@ Additionally the goal is not directly modelled inside the grid. Therefore, agent
 Agents are equipped with a set of discrete actions. To move to adjacent grids, agents can use the `DRIBBLE_UP`,`DRIBBLE_DOWN`,`DRIBBLE_LEFT`, and `DRIBBLE_RIGHT` actions. Additionally, the `KICK` action enables the agents to shoot the ball into the goal. 
 
 ## Reward Functions
-Agents only receive non-zero rewards at the completion of each episodes. In this case, a goal will result in a reward of **+1**. However, a wayward kick and occupying the same grid as opponent agents will result in a penalty.
+Agents only receive non-zero rewards at the completion of each episodes. In this case, a goal will result in a reward of **+1**. However, occupying the same grid as opponent agents will result in a penalty.
 
 ## Environment Dynamics
 Environment transition resulting from the actions are stochastic. For the dribbling related actions, there will be a small probability for agents to end up dribbling into an adjacent (but wrong) grid. There is also some possibility of agents kicks going wayward from the goal after executing the `KICK` action. This probability of kicking the ball wayward generally depends on how close the grids are from the goal.
