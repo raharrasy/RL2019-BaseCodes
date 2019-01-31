@@ -8,9 +8,6 @@ class MonteCarloAgent(Agent):
 	def learn(self):
 		raise NotImplementedError
 
-	def updateQValues(self, sequenceOfExperience, discountRate):
-		raise NotImplementedError
-
 	def toStateRepresentation(self, state):
 		raise NotImplementedError
 
@@ -26,7 +23,7 @@ class MonteCarloAgent(Agent):
 	def act(self):
 		raise NotImplementedError
 
-	def setEpsilon(self, epsilon)
+	def setEpsilon(self, epsilon):
 		raise NotImplementedError
 
 

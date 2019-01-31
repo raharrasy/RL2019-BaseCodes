@@ -9,11 +9,6 @@ import argparse
 class SARSABase(Agent):
 	def __init__(self, learningRate, discountFactor, epsilon, initVals=0.0):
 		super(SARSABase, self).__init__()
-		self.learningRate = learningRate
-		self.discountFactor = discountFactor
-		self.QValTables = {}
-		self.initVals = initVals
-		self.epsilon = epsilon
 
 	def learn(self):
 		raise NotImplementedError
