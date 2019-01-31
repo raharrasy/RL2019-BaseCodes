@@ -1,4 +1,4 @@
-# Coursework 1 - SARSA Methods
+# Coursework 1 - Q-Learning Methods
 
 You are required to implement the Q-Learning algorithm using the codes provided in `QLearningBase.py`. Before you proceed, install the HFO Domain first. Your task is to extend `QLearningBase.py` by implementing functions that have yet been implemented there.
 
