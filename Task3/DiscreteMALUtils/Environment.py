@@ -2,15 +2,13 @@ import random
 import copy
 
 class DiscreteMARLEnvironment(object):
-	def __init__(self, numOpponents=0, numAgents=0, collisionPenalty = 0.4, seed = 12345):
+	def __init__(self, numOpponents=0, numAgents=0, collisionPenalty = 0.4):
 		self.opponentNums = numOpponents
 		self.agentNums = numAgents
 		self.collisionPenalty = collisionPenalty
 		self.possibleActions = ['MOVE_UP', 'MOVE_DOWN', 'MOVE_LEFT', 'MOVE_RIGHT', 'KICK', 'NO_OP']
 		self.curState = []
-		self.seed = seed
 		self.verbose = verbose
-		random.seed(self.seed)
 		self.agentInitLocs, self.opponentInitLocs = self.computeAgentInitLoc(), self.computeOpponentInitLoc()
 		self.ballHolderId = None
 		self.ballInitLocations = self.computeBallInitLoc()
