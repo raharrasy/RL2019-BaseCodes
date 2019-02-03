@@ -49,6 +49,7 @@ if __name__ == '__main__':
 				stateCopies = []
 				for agentIdx in range(args.numAgents):
 					obsCopy = deepcopy(observation[agentIdx])
+					stateCopies.append(obsCopy)
 					agents[agentIdx].setState(agents[agentIdx].toStateRepresentation(obsCopy))
 					actions.append(agents[agentIdx].act())
 
