@@ -36,7 +36,7 @@ if __name__ == '__main__':
 	# Initialize a Monte-Carlo Agent
 	agent = MonteCarloAgent(discountFactor = 0.99, epsilon = 1.0)
 	numEpisodes = 10
-
+	numTakenActions = 0
 	# Run training Monte Carlo Method
 	for episode in range(numEpisodes):	
 		agent.reset()
@@ -44,9 +44,12 @@ if __name__ == '__main__':
 		status = 0
 
 		while status==0:
+			epsilon = agent.computeHyperparameters(self, numTakenActions, episode)
+			agent.setEpsilon(epsilon)
 			obsCopy = observation.copy()
 			agent.setState(agent.toStateRepresentation(obsCopy))
 			action = agent.act()
+			numTakenActions += 1
 			nextObservation, reward, done, status = hfoEnv.step(action)
 			agent.setExperience(agent.toStateRepresentation(obsCopy), action, reward, status, agent.toStateRepresentation(nextObservation))
 			observation = nextObservation
