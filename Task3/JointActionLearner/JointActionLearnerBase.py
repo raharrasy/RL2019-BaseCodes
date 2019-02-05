@@ -14,52 +14,65 @@ class JointQLearningAgent(Agent):
 		
 
 	def setExperience(self, state, action, oppoActions, reward, status, nextState):
+		raise NotImplementedError
 		
 	def learn(self):
+		raise NotImplementedError
 
 	def act(self):
+		raise NotImplementedError
 
 	def setEpsilon(self, epsilon) :
+		raise NotImplementedError
+		
+	def setLearningRate(self, learningRate) :
+		raise NotImplementedError
 
 	def setState(self, state):
+		raise NotImplementedError
 
 	def toStateRepresentation(self, rawState):
+		raise NotImplementedError
+		
+	def computeHyperparameters(self, numTakenActions, episodeNumber):
+		raise NotImplementedError
 
 if __name__ == '__main__':
 
-	for itNum in range(args.numIterations):
-		MARLEnv = DiscreteMARLEnvironment(numOpponents = args.numOpponents, numAgents = args.numAgents, seed=randomSeed)
-		agents = []
+	MARLEnv = DiscreteMARLEnvironment(numOpponents = args.numOpponents, numAgents = args.numAgents, seed=randomSeed)
+	agents = []
+	for i in range(args.numAgents):
+		agent = JointQLearningAgent(learningRate = 0.1, discountFactor = 0.9, epsilon = 1.0, numTeammates=args.numAgents-1)
+		agents.append(agent)
 
-		for i in range(args.numAgents):
-			agent = JointQLearningAgent(learningRate = 0.1, discountFactor = 0.9, epsilon = 1.0, numTeammates=args.numAgents-1)
-			agents.append(agent)
+	numEpisodes = args.numEpisodes
+	numTakenActions = 0
 
-		numEpisodes = args.numEpisodes
-
-		for episode in range(numEpisodes):	
-			status = ["IN_GAME","IN_GAME","IN_GAME"]
-			observation = MARLEnv.reset()
+	for episode in range(numEpisodes):	
+		status = ["IN_GAME","IN_GAME","IN_GAME"]
+		observation = MARLEnv.reset()
 			
+		while status[0]=="IN_GAME":
 			for agent in agents:
-				agent.setEpsilon(1.0 - min(1.0,episode/5000.0) * 0.95)
-			
-			while status[0]=="IN_GAME":
-				actions = []
-				stateCopies = []
-				for agentIdx in range(args.numAgents):
-					obsCopy = deepcopy(observation[agentIdx])
-					stateCopies.append(obsCopy)
-					agents[agentIdx].setState(agents[agentIdx].toStateRepresentation(obsCopy))
-					actions.append(agents[agentIdx].act())
+				learningRate, epsilon = agent.computeHyperparameters(numTakenActions, episodeNumber)
+				agent.setEpsilon(epsilon)
+				agent.setLearningRate(learningRate)
+			actions = []
+			stateCopies = []
+			for agentIdx in range(args.numAgents):
+				obsCopy = deepcopy(observation[agentIdx])
+				stateCopies.append(obsCopy)
+				agents[agentIdx].setState(agents[agentIdx].toStateRepresentation(obsCopy))
+				actions.append(agents[agentIdx].act())
 
-				nextObservation, reward, done, status = MARLEnv.step(actions)
+			nextObservation, reward, done, status = MARLEnv.step(actions)
+			numTakenActions += 1
 
-				for agentIdx in range(args.numAgents):
-					oppoActions = actions.copy()
-					del oppoActions[agentIdx]
-					agents[agentIdx].setExperience(agents[agentIdx].toStateRepresentation(stateCopies[agentIdx]), actions[agentIdx], oppoActions, 
-						reward[agentIdx], status[agentIdx], nextObservation[agentIdx])
-					agents[agentIdx].learn()
+			for agentIdx in range(args.numAgents):
+				oppoActions = actions.copy()
+				del oppoActions[agentIdx]
+				agents[agentIdx].setExperience(agents[agentIdx].toStateRepresentation(stateCopies[agentIdx]), actions[agentIdx], oppoActions, 
+					reward[agentIdx], status[agentIdx], nextObservation[agentIdx])
+				agents[agentIdx].learn()
 				
-				observation = nextObservation
+			observation = nextObservation
