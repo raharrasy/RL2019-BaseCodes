@@ -31,6 +31,9 @@ class IndependentQLearningAgent(Agent):
 		
 	def setLearningRate(self, learningRate):
 		raise NotImplementedError
+		
+	def computeHyperparameters(self, numTakenActions, episodeNumber):
+		raise NotImplementedError
 
 if __name__ == '__main__':
 	MARLEnv = DiscreteMARLEnvironment(numOpponents = args.numOpponents, numAgents = args.numAgents)
