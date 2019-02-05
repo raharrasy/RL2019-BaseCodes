@@ -26,6 +26,12 @@ class WolfPHCAgent(Agent):
 	def toStateRepresentation(self, state):
 
 	def setState(self, state):
+		
+	def setWinDelta(self, winDelta):
+		
+	def setLoseDelta(self, loseDelta):
+	
+	def computeHyperparameters(self, numTakenActions, episodeNumber):
 
 if __name__ == '__main__':
 
@@ -39,11 +45,17 @@ if __name__ == '__main__':
 		agents.append(agent)
 
 	numEpisodes = args.numEpisodes
+	numTakenActions = 0
 	for episode in range(numEpisodes):	
 		status = ["IN_GAME","IN_GAME","IN_GAME"]
 		observation = MARLEnv.reset()
 		
 		while status[0]=="IN_GAME":
+			for agent in agents:
+				loseDelta, winDelta, learningRate = agent.computeHyperparameters(numTakenActions, episodeNumber)
+				agent.setLoseDelta(loseDelta)
+				agent.setWinDelta(winDelta)
+				agent.setLearningRate(learningRate)
 			actions = []
 			perAgentObs = []
 			agentIdx = 0
@@ -54,6 +66,7 @@ if __name__ == '__main__':
 				actions.append(agent.act())
 				agentIdx += 1
 			nextObservation, reward, done, status = MARLEnv.step(actions)
+			numTakenActions += 1
 
 			agentIdx = 0
 			for agent in agents:
