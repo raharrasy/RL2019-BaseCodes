@@ -7,7 +7,7 @@ You are required to implement the first visir Monte Carlo control with epsilon-s
 To ensure that your codes can be used by the marking script, ensure that all the necessary functions have been implemented. To check whether these implementations are correct, you can use the code snippet given in `__main__` to test your implementation. This code snippet gives an outline on how your implemented functions will interact to train a Monte Carlo agent. If you just add some code to modify number of episodes and the hyperparameters for training, you can use this code to train a Monte Carlo agent.
 
 ### Implemented Functions
-#### `__init__`
+#### `__init__(self, discountFactor, epsilon)`
 This init function should initialize all the necessary parameters for training a Monte Carlo Agent. This includes the discount factor and the epsilon value. This function will only be called once at the very beginning when you initialize agents for training.
 
 Additionally, ensure that the initial Q-Values of all state-action pairs are initialized to zero prior to training. Although you can technically use any initialization value for this method, we require this as a means for unit testing your implementations.
