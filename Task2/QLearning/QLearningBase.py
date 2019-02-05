@@ -34,6 +34,9 @@ class QLearningBase(Agent):
 
 	def reset(self):
 		raise NotImplementedError
+		
+	def computeHyperparameters(self, numTakenActions, episodeNumber):
+		raise NotImplementedError
 
 if __name__ == '__main__':
 	# Initialize connection with the HFO server
@@ -45,14 +48,20 @@ if __name__ == '__main__':
 	numEpisodes = args.numEpisodes
 
 	# Run training using Q-Learning
+	numTakenActions = 0 
 	for episode in range(numEpisodes):
 		status = 0
 		observation = hfoEnv.reset()
 		
 		while status==0:
+			learningRate, epsilon = agent.computeHyperparameters(self, numTakenActions, episode)
+			agent.setEpsilon(epsilon)
+			agent.setLearningRate(learningRate)
+			
 			obsCopy = observation.copy()
 			agent.setState(agent.toStateRepresentation(obsCopy))
 			action = agent.act()
+			numTakenActions += 1
 			
 			nextObservation, reward, done, status = hfoEnv.step(action)
 			agent.setExperience(agent.toStateRepresentation(obsCopy), action, reward, status, agent.toStateRepresentation(nextObservation))
