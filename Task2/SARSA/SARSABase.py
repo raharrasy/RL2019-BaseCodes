@@ -45,6 +45,7 @@ if __name__ == '__main__':
 	agent = SARSAAgent(0.1, 0.99)
 
 	# Run training using SARSA
+	numTakenActions = 0 
 	for episode in range(numEpisodes):	
 		agent.reset()
 		status = 0
@@ -54,6 +55,7 @@ if __name__ == '__main__':
 		epsStart = True
 
 		while status==0:
+			learningRate, epsilon = agent.computeHyperparameters(self, numTakenActions, episode)
 			obsCopy = observation.copy()
 			agent.setState(agent.toStateRepresentation(obsCopy))
 			action = agent.act()
