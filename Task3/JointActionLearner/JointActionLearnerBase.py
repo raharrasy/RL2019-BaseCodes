@@ -54,7 +54,7 @@ if __name__ == '__main__':
 			
 		while status[0]=="IN_GAME":
 			for agent in agents:
-				learningRate, epsilon = agent.computeHyperparameters(numTakenActions, episodeNumber)
+				learningRate, epsilon = agent.computeHyperparameters(numTakenActions, episode)
 				agent.setEpsilon(epsilon)
 				agent.setLearningRate(learningRate)
 			actions = []
