@@ -41,11 +41,13 @@ if __name__ == '__main__':
 
 	MARLEnv = DiscreteMARLEnvironment(numOpponents = args.numOpponents, numAgents = args.numAgents, seed=randomSeed)
 	agents = []
-	for i in range(args.numAgents):
+	numAgents = 2
+	numEpisodes = 4000
+	for i in range(numAgents):
 		agent = JointQLearningAgent(learningRate = 0.1, discountFactor = 0.9, epsilon = 1.0, numTeammates=args.numAgents-1)
 		agents.append(agent)
 
-	numEpisodes = args.numEpisodes
+	numEpisodes = numEpisodes
 	numTakenActions = 0
 
 	for episode in range(numEpisodes):	
