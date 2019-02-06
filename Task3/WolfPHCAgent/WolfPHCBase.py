@@ -44,7 +44,7 @@ if __name__ == '__main__':
 		agent = WolfPHCAgent(learningRate = 0.2, discountFactor = 0.99)
 		agents.append(agent)
 
-	numEpisodes = args.numEpisodes
+	numEpisodes = 4000
 	numTakenActions = 0
 	for episode in range(numEpisodes):	
 		status = ["IN_GAME","IN_GAME","IN_GAME"]
@@ -52,7 +52,7 @@ if __name__ == '__main__':
 		
 		while status[0]=="IN_GAME":
 			for agent in agents:
-				loseDelta, winDelta, learningRate = agent.computeHyperparameters(numTakenActions, episodeNumber)
+				loseDelta, winDelta, learningRate = agent.computeHyperparameters(numTakenActions, episode)
 				agent.setLoseDelta(loseDelta)
 				agent.setWinDelta(winDelta)
 				agent.setLearningRate(learningRate)
