@@ -6,6 +6,23 @@ Full codes for the discretized HFO domain can be found in the `DiscreteHFO` fold
 
 To get an example of the usage of this DiscreteHFO domain, you can see an example code for a uniformly random agent in the `RandomAgentExample` folder.
 
+## Implemented Files (**Contains functions to be implemented**)
+1. `QLearning/QLearningBase.py`
+2. `MonteCarlo/MonteCarloBase.py`
+3. `SARSA/SARSABase.py`
+
+## Environment Files (**Should not be modified**)
+1. `DiscreteHFO/HFOAttackingPlayer.py`
+   - File to establish connections with HFO and preprocess state representations gathered from the HFO domain.
+2. `DiscreteHFO/HFODefendingPlayer.py`
+   - File to control defending NPCs inside the HFO environment. 
+3. `DiscreteHFO/HFOGoalkeepingPlayer.py`
+   - File to control Goalkeeping NPCs inside the HFO environment. HFO environment cannot run without a goalkeeper. 
+4. `DiscreteHFO/DiscretizedDefendingPlayer.py`
+   - File to initialize the defending player.
+5. `DiscreteHFO/Goalkeeper.py`
+   - File to initialize the Goalkeeper.
+   
 ## State Space
 The environment is modelled as a 5x5 grid. The grid with `(0,0)` coordinate is located in the top left part of the field. At each timestep, agents will be given a state representation, in form of a list, which has information on the defensive NPCs and their own location on the grid. The first item in the list is the agent's location and the rest are the location of the opponents. 
 
