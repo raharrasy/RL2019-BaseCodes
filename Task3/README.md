@@ -8,6 +8,17 @@ However, unlike Task 2, the team of agents will only receive a reward of **+1** 
 
 Full codes for the discretized Multiagent RL domain can be found in the `DiscreteMARLUtils` folder. In particular, `DiscreteMARLUtils/Environment.py` contains the implementation of the interface between the HFO domain and your agent controller. You must then implement algorithms that choose actions to take given a certain state, and pass it through the provided `act` method. This environment will respond by providing your agents with the next state, reward, and episode completion information. 
 
+## Implemented Files (**Contains functions to be implemented**)
+1. `IndependentQLearning/IndependentQLearning.py`
+2. `JointActionLearner/JointActionLearnerBase.py`
+3. `WolfPHCAgent/WolfPHCBase.py`
+
+## Environment Files (**Should not be modified**)
+1. `DiscreteMARLUtils/Environment.py`
+   - Specifies the environment for Task 3. Mostly similar with Task 2, just without any usage of HFO APIs. Also check at the reward functions to see how it's calculated.
+2. `DiscreteMARLUtils/Agent.py`
+   - Specifies the necessary functions that all agents must have.
+
 ## State Space
 The environment is modelled as a 5x5 grid. The grid with `(0,0)` coordinate is located in the top left part of the field. At each timestep, agents will be given a state representation, in form of a list, which has information on their teammates', defensive NPCs' and their own location on the grid. 
 
