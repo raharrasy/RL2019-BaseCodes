@@ -58,7 +58,7 @@ Finally, clone this repository into the `example` directory in the `HFO` folder.
 ### Performance marking
 The performance of the agent is going to be based on average time to goal. Under this metric, several different experiments with different starting states are executed. At each episode, we then measure the number of timesteps that passed until the agents score a goal. In episodes where agents fail to score goals, a default value of the maximum timesteps in an episode (e.g. 500 timesteps) will be used for in the averaging process, otherwise the time to goal is going to be used.
 
-**We require you to store the parameters of your neural network every 1 million global timesteps and include it along with your scripts** under the name `**params_<k-th storage time>**.pkl`. As an example, after 1 million global steps, store your parameters as `params_1.pkl`, `params_2.pkl` after 2 million global steps, etc. 
+**We require you to store the parameters of your neural network every 1 million global timesteps and include it along with your scripts** under the name `**params_<k-th storage time>**`. As an example, after 1 million global steps, store your parameters as `params_1`, `params_2` after 2 million global steps, etc. 
 
 Using these parameters, we would then be able to load your neural network and test it's performance. This also prevents us from having to train a neural network for each student, which might take too long.
 
