@@ -23,6 +23,14 @@ To get an example of the usage of this DiscreteHFO domain, you can see an exampl
 5. `DiscreteHFO/Goalkeeper.py`
    - File to initialize the Goalkeeper.
    
+## Caller Files (**Should not be modified**)
+1. `QLearning/QLearningAgent.sh`
+   - This file runs all the necessary files to initialize a discrete HFO domain and run a Q-Learning agent.
+2. `SARSA/SARSAAgent.sh`
+   - This file runs all the necessary files to initialize a discrete HFO domain and run a SARSA agent.
+3. `MonteCarlo/MonteCarlo.sh`
+   - This file runs all the necessary files to initialize a discrete HFO domain and run a Monte Carlo agent.
+   
 ## State Space
 The environment is modelled as a 5x5 grid. The grid with `(0,0)` coordinate is located in the top left part of the field. At each timestep, agents will be given a state representation, in form of a list, which has information on the defensive NPCs and their own location on the grid. The first item in the list is the agent's location and the rest are the location of the opponents. 
 
@@ -42,7 +50,7 @@ You are required to implement the Policy Iteration, Q-Learning, SARSA, and first
 
 ## Setup and Requirements
 
-The codes can be executed in your own DICE machines. However, you need to first download the necessary packages before running them. In this task, you are going to implement an agent in the Half Field Offense (HFO) domain. Full installation intructions and documentation of this environment can be seen [in this repository](https://github.com/LARG/HFO). Use the following commands to install the dependencies for HFO in your DICE machines:
+The codes can be executed in your own DICE machines. However, you need to first download the necessary packages before running them. In this task, you are going to implement an agent in the Half Field Offense (HFO) domain. Full installation intructions and documentation of this environment can be seen [in this repository](https://github.com/raharrasy/HFO). Use the following commands to install the dependencies for HFO in your DICE machines:
 
 ```
 conda create --name <Environment Name> numpy python=3.5
