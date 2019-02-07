@@ -59,19 +59,19 @@ class HFOAttackingPlayer(object):
 
 	# From a location feature given by HFO, output the discrete representation of that location
 	def getDiscretizedLocation(self, coordX, coordY):
-		discCoordX = int(math.floor((coordX+0.8)/0.32))
-		discCoordY = int(math.floor((coordY+0.8)/0.32))
+                discCoordX = int(math.floor((coordX+(1.0/11.0))/0.34))
+                discCoordY = int(math.floor((coordY)/0.275))
 
-		return discCoordX, discCoordY
+                return discCoordX, discCoordY
 
 	# Based on gridworld coordinate, get the coordinates of the centroid of that
 	# grid in the real HFO state representation.
 
 	def getCentroidCoord(self, discCoordX, discCoordY):
-		centroidX = -0.8 + discCoordX * 0.32 + 0.16
-		centroidY = -0.8 + discCoordY * 0.32 + 0.16
+                centroidX = (-1.0/1.1) + discCoordX * 0.34 + 0.17
+                centroidY = -0.825 + discCoordY * 0.275 + 0.1375
 
-		return centroidX, centroidY
+                return centroidX, centroidY
 
 	# Method to move agent to it's initial position
 
@@ -98,7 +98,7 @@ class HFOAttackingPlayer(object):
 
 		elif actionString =='DRIBBLE_DOWN':
 			nextDiscX = self.curState[0][0]
-			nextDiscY = min(self.curState[0][1]+1,4)
+			nextDiscY = min(self.curState[0][1]+1,5)
 
 
 		elif actionString =='DRIBBLE_LEFT':
@@ -115,8 +115,8 @@ class HFOAttackingPlayer(object):
 
 			for index in range(1, len(self.curState)):
 				if (nextDiscX, nextDiscY) == self.curState[index]:
-					destinationX -= 0.1
-					destinationY -= 0.1
+					destinationX -= 0.05
+					destinationY -= 0.05
 					break
 			resultingStatus = self.visualizeDribbles(destinationX,destinationY)		
 			self.curState[0] = (nextDiscX, nextDiscY)
