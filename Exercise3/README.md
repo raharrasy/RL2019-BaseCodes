@@ -1,4 +1,4 @@
-# Task 4 - Asynchronous Q-Learning with Function Approximation in HFO
+# Exercise 3 - Asynchronous Q-Learning with Function Approximation in HFO
 
 In this task, you are required to implement an attacking agent in the HFO domain that learns using the Asynchronous Q-Learning  algorithm([**Mnih et al., 2016**](https://arxiv.org/pdf/1602.01783.pdf)). Unlike previous tasks, we want you to design your own reward functions to train the agent. In general, choosing a reward function that enables easier learning for agents is a major part of deep reinforcement learning research. You are also given freedom to decide on the state representations used to train your agents. Just like rewards, designing appropriate state representation is a major part of deep reinforcement learning research.
 
