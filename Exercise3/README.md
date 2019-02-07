@@ -42,7 +42,7 @@ You are allowed to define your own reward functions for this task. Make sure tha
 
 ## Setup and Requirements
 
-The codes can be executed in your own DICE machines. However, you need to first download the necessary packages before running them. In this task, you are going to implement an agent in the Half Field Offense (HFO) domain. Full installation intructions and documentation of this environment can be seen [in this repository](https://github.com/LARG/HFO). Use the following commands to install the dependencies for HFO in your DICE machines:
+The codes can be executed in your own DICE machines. However, you need to first download the necessary packages before running them. In this task, you are going to implement an agent in the Half Field Offense (HFO) domain. Full installation intructions and documentation of this environment can be seen [in this repository](https://github.com/raharrasy/HFO). Use the following commands to install the dependencies for HFO in your DICE machines:
 
 ```
 conda create --name <Environment Name> numpy python=3.5
@@ -53,5 +53,16 @@ conda install qt=4
 ```  
 
 Finally, clone this repository into the `example` directory in the `HFO` folder. Also, don't forget to read the documentations of the original HFO repository. It would give additional understanding on what the feature spaces for this environment are.
+
+## Marking details
+### Performance marking
+The performance of the agent is going to be based on average time to goal. Under this metric, several different experiments with different starting states are executed. At each episode, we then measure the number of timesteps that passed until the agents score a goal. In episodes where agents fail to score goals, a default value of the maximum timesteps in an episode (e.g. 500 timesteps) will be used for in the averaging process, otherwise the time to goal is going to be used.
+
+**We require you to store the parameters of your neural network every 1 million global timesteps and include it along with your scripts** under the name `**params_<k-th storage time>**.pkl`. As an example, after 1 million global steps, store your parameters as `params_1.pkl`, `params_2.pkl` after 2 million global steps, etc. 
+
+Using these parameters, we would then be able to load your neural network and test it's performance. This also prevents us from having to train a neural network for each student, which might take too long.
+
+### Unit test marking
+For unit testing, we will only test the correctness of **`computeTargets(reward, nextObservation, discountFactor, done, targetNetwork)`** and **`computePrediction(state, action, valueNetwork)`** inside `Worker.py`. These functions will receive a Tensor representing an information from a single state and outputs another tensor with just 1 item inside it. This item should be the target value under the given state for `computeTargets` or the predicted value of the given state for `computePrediction`. When given to `torch.Tensor.item()`, the output tensor should be able to output the element stored inside of it.
 
 
