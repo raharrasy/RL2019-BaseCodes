@@ -13,19 +13,19 @@ Additionally, **ensure** that the initial Q-Values of all state-action pairs are
 This init function should initialize all the necessary parameters for training a Q-Learning Agent. This includes the learning rate, discount factor, and the epsilon value (if you use an epsilon greedy exploration strategy). This function will only be called once at the very beginning when you initialize agents for training.
 
 #### `learn()`
-This is the most important function you need to implement in this task. This function has no input parameters. On the other hand, this method **must** return a single scalar that specifies the change **(value after update subtracted by value before training)** in updated state-action value after you've trained your agents using Q-Learning's update. It will be used by the automarker to compare the correctness of your implementation against the solution.
+This is the most important function you need to implement in this task. This function has no input parameters. On the other hand, this method **must** return a single scalar that specifies the change **(value after update subtracted by value before update)** in updated state-action value after you've trained your agents using Q-Learning's update. It will be used by the automarker to compare the correctness of your implementation against the solution. **This function has the same functionality as line 8 in the books' Q-Learning pseudocode**
 
 #### `act()`
-This function will be used to choose the actions that your agents will use when faced with a state. It should only return the action that should be taken by the agent at the current state.
+This function will be used to choose the actions that your agents will use when faced with a state. It should only return the action that should be taken by the agent at the current state. In general, this will have the same functionality as **line 6 in the books' Q-Learning pseudocode.**
 
 #### `toStateRepresentation(state)`
-You might want to use a different representation compared to the ones provided by the environment. This will provide a problem to the automarker. Therefore, you should implement a function that maps the raw state representation into the the state representation that you are using in your implementation. This function will receive a state and outputs it's value under the representations that you are using in your implementations.
+You might want to use a different representation compared to the ones provided by the environment. This will provide a problem to the automarker. Therefore, you should implement a function that maps the raw state representation into the the state representation that you are using in your implementation. This function will receive a state and outputs it's value under the representations that you are using in your implementations. Additionally, this state representation **must be able to be used as keys of a python dictionary** since the marking tools will use this to check the correctness of your algorithm.
 
 #### `setState(state)`
-This function will be used to provide the agents you're controlling with the current state information. It will receive the state representation from the environment as an input. On the other hand, this does not need to output anything.
+This function will be used to provide the agents you're controlling with the current state information. It will receive the state representation from the environment as an input. On the other hand, this does not need to output anything. **This is generally equivalent to line 9 of the Q-Learning pseudocode given in the book.**
 
 #### `setExperience(state, action, reward, status, nextState)`
-Once an agent executes an action, it will receive the rewards, status, and next states resulting from that action. Use this method to set these data to prepare your agent to learn using the Q-Learning update.
+Once an agent executes an action, it will receive the rewards, status, and next states resulting from that action. Use this method to set these data to prepare your agent to learn using the Q-Learning update. **This is generally equivalent to line 7 of the Q-Learning pseudocode given in the book**
 
 #### `reset()`
 You might want to reset some states of an agent at the beginning of each episode. Use this function to do that. This function does not require any inputs. Additionally, it also does not provide any outputs.
@@ -38,3 +38,10 @@ This function should return a tuple indicating the learning rate and epsilon use
 
 ### Training process
 To see how your implemented function interact with each other to train the agent, check the `__main__` function inside `QLearningBase.py`. Make sure that you can successfully train your agent using the **exact same** codes inside `__main__` to ensure that your implementations are correct. This snippet of code used in `__main__` is also going to be used in the marking process.
+
+## Marking details
+### Performance marking
+Using similar codes as what you've seen in `__main__`, we are going to run your agent on a randomly sampled MDP and compare it's performance to our solution. Performance is measured by running experiments using the same number of episodes at each experiment. We then average the rewards of the agent and plot this quantity.
+
+### Unit test marking
+We compare the results of updates from `learn()`. This function should return the difference between the value of the updated state-action pair after and before the update. (Q(s_t,a_t)(t+1) - Q(s_t,a_t)(t)) 
