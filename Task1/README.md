@@ -1,4 +1,4 @@
-# Task 1 - Value Iteration
+# Exercise 1 - Value Iteration
 
 You are required to implement the Value Iteration algorithm (page 83 of the RL textbook) by filling the unimplemented functions in `BellmanDPBase.py`. To test your implementation, an example MDP is specified in the `MDP.py` file.  A function specifying the reward function, `getRewards(initState, Action, nextState)` and transition distribution,`probNextStates(initState, action)` are specified in the `MDP.py` file. Your task is to implement the `totalBellmanUpdate()` method in `BellmanDPBase.py` and make a working implementation of a complete update under value iteration. In your implementation, you **must** use the `probNextStates(initState, action)` and `getRewards(initState, Action, nextState)` to get the necessary information to execute the value iteration algorithm.
 
