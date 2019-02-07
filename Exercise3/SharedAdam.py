@@ -3,6 +3,10 @@ import math
 import torch
 import torch.optim as optim
 
+# Codes taken from https://github.com/ikostrikov/pytorch-a3c/
+# This enables different processes to share optimizer statistics
+# which improves overall agent performance.
+# Similar codes can be used for other optimizers too.
 
 class SharedAdam(optim.Adam):
 	"""Implements Adam algorithm with shared states.
