@@ -15,7 +15,7 @@ Additionally, ensure that the initial Q-Values of all state-action pairs are ini
 #### `learn()`
 This is the most important function you need to implement in this task. This function has no input parameters. On the other hand, it should return **a tuple of two entries**. The first entry is the **complete Q-value table of all states**. The second entry is the **Q-value estimate after update of the states you've encountered in the episode ordered by their first time appearance in the episode**.
 
-As an example, assume that your states are represented as alphabets and your actions as numbers. You encountered an episode where the sequence of states starting from the first to the last are `("A",1), ("B",3), ("C",1), ("A",1), and finally ("A",2)`. Then the second entry must return `[Q("A",1), Q("B",3), Q("C",1), Q("A",2)]`
+As an example, assume that your states are represented as alphabets and your actions as numbers. You encountered an episode where the sequence of states starting from the first to the last are `("A",1), ("B",3), ("C",1), ("A",1), and finally ("A",2)`. Then the second entry must return `[Q("A",1), Q("B",3), Q("C",1), Q("A",2)]` after training.
 
 It will be used by the automarker to compare the correctness of your implementation against the solution. 
 
@@ -52,4 +52,4 @@ Using similar codes as what you've seen in `__main__`, we are going to run your 
 ### Unit test marking
 We compare the results of updates from `learn()`. This function should return the difference between the value of the updated state-action pairs that you've encountered throughout the episode.
 
-As an example, assume that your states are represented as alphabets and your actions as numbers. You encountered an episode where the sequence of states starting from the first to the last are `("A",1), ("B",3), ("C",1), ("A",1), and finally ("A",2)`. Then the second entry must return `[Q("A",1), Q("B",3), Q("C",1), Q("A",2)]
+As an example, assume that your states are represented as alphabets and your actions as numbers. You encountered an episode where the sequence of states starting from the first to the last are `("A",1), ("B",3), ("C",1), ("A",1), and finally ("A",2)`. Then the second entry must return `[Q("A",1), Q("B",3), Q("C",1), Q("A",2)]` after training.
