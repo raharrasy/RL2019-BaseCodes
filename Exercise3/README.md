@@ -60,10 +60,10 @@ The performance of the agent is going to be based on average time to goal. Under
 
 **We require you to store the parameters of your neural network every 1 million global timesteps and include it along with your scripts** under the name `**params_<k-th storage time>**`. As an example, after 1 million global steps, store your parameters as `params_1`, `params_2` after 2 million global steps, etc. **Save your models such that you can load the parameters using :**
 
-    ```
-    model = ValueNetwork()
-    model.load_state_dict(torch.load(params_<k-th storage time>))
-    ```
+```
+model = ValueNetwork()
+model.load_state_dict(torch.load(params_<k-th storage time>))
+```
 
 Using these parameters, we would then be able to load your neural network and test it's performance. This also prevents us from having to train a neural network for each student, which might take too long.
 
