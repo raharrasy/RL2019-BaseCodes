@@ -1,4 +1,4 @@
-# Coursework 1 - SARSA Methods
+# Exercise 2- SARSA Methods
 
 You are required to implement the SARSA algorithm using the codes provided in `SARSABase.py`. Before you proceed,install the HFO Domain first by following the necessary steps outlined in `Task2/README.md`. Your task is to extend `SARSABase.py` by implementing functions that have yet been implemented in `SARSABase.py`.
 
