@@ -25,7 +25,7 @@ After calculating the average policy, updates to agents' current policy can be c
 This function will be used to choose the actions that your agents will use when faced with a state. It should only return the action that should be taken by the agent at the current state.
 
 #### `toStateRepresentation(state)`
-You might want to use a different representation compared to the ones provided by the environment. This will provide a problem to the automarker. Therefore, you should implement a function that maps the raw state representation into the the state representation that you are using in your implementation. This function will receive a state and outputs it's value under the representations that you are using in your implementations.
+You might want to use a different representation compared to the ones provided by the environment. This will provide a problem to the automarker. Therefore, you should implement a function that maps the raw state representation into the the state representation that you are using in your implementation. This function will receive a state and outputs it's value under the representations that you are using in your implementations. Additionally, this state representation **must be able to be used as keys of a python dictionary** since the marking tools will use this to check the correctness of your algorithm.
 
 #### `setState(state)`
 This function will be used to provide the agents you're controlling with the current state information. It will receive the state representation from the environment as an input. On the other hand, this does not need to output anything.
@@ -44,3 +44,10 @@ This function should return a tuple indicating the losing delta, winning delta, 
 
 ### Training process
 To see how your implemented function interact with each other to train the agent, check the `__main__` function inside `WolfPHCAgent.py`. Make sure that you can successfully train your agent using the **exact same** codes inside `__main__` to ensure that your implementations are correct. This snippet of code used in `__main__` is also going to be used in the marking process.
+
+## Marking details
+### Performance marking
+Using similar codes as what you've seen in `__main__`, we are going to run your agent on a randomly sampled environment and compare it's performance to our solution. Performance is measured by running an experiment using your implementation. We then divide the sequence of episodes into groups of consecutive episodes and average the reward of the agent on these groups.
+
+### Unit test marking
+We compare the results of updates from `learn()`, `calculateAveragePolicyUpdate()`, and `calculatePolicyUpdate()` for unit testing.
