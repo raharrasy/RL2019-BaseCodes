@@ -38,7 +38,7 @@ class HFODefendingPlayer(object):
 
 	def reset(self):
 		self.initDiscCoordX = 2-(self.initPositions[self.episode][0]-2)
-		self.initDiscCoordY = 2-(self.initPositions[self.episode][1]-2)
+		self.initDiscCoordY = 3-(self.initPositions[self.episode][1]-2)
 		self.initGame()
 		self.episode += 1
 
@@ -46,15 +46,13 @@ class HFODefendingPlayer(object):
 		self.hfo.connectToServer(HIGH_LEVEL_FEATURE_SET,self.config_dir,self.port,self.server_addr,self.team_name,False)
 
 	def getDiscretizedLocation(self, coordX, coordY):
-		discCoordX = int(math.floor((coordX+0.8)/0.32))
-		discCoordY = int(math.floor((coordY+0.8)/0.32))
-
+		discCoordX = int(math.floor((coordX+(1.0/11.0))/0.34))
+		discCoordY = int(math.floor((coordY)/0.275))
 		return discCoordX, discCoordY
-
+	
 	def getCentroidCoord(self, discCoordX, discCoordY):
-		centroidX = -0.8 + discCoordX * 0.32 + 0.16
-		centroidY = -0.8 + discCoordY * 0.32 + 0.16
-
+		centroidX = (-0.9/1.1) + discCoordX * 0.34 + 0.17
+		centroidY = -0.825 + discCoordY * 0.275 + 0.1375
 		return centroidX, centroidY
 
 	def process_state(self, state):
