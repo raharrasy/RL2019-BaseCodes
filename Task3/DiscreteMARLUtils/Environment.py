@@ -1,8 +1,9 @@
 import random
 import copy
+import pygame
 
 class DiscreteMARLEnvironment(object):
-	def __init__(self, numOpponents=0, numAgents=0, collisionPenalty = 0.4):
+	def __init__(self, numOpponents=0, numAgents=0, collisionPenalty = 0.4, visualize=False):
 		self.opponentNums = numOpponents
 		self.agentNums = numAgents
 		self.collisionPenalty = collisionPenalty
@@ -16,6 +17,18 @@ class DiscreteMARLEnvironment(object):
 		self.prevState = None
 		self.dynamics = Dynamics()
 		self.totalTimesteps = 500
+		self.visualize = visualize
+		if self.visualize:
+			pygame.init()
+			WINDOW_SIZE = (255, 255)
+			self.screen = pygame.display.set_mode(WINDOW_SIZE)
+			self.WIDTH = 20
+			self.HEIGHT = 20
+			self.MARGIN = 2
+
+
+            pygame.display.set_caption("MARL Gridworld")
+            self.clock = pygame.time.Clock()
 
 	def reset(self):
 
@@ -155,8 +168,31 @@ class DiscreteMARLEnvironment(object):
 		reward = self.get_reward(status, self.prevState, nextState)
 		self.totalTimesteps -= 1
 		return nextState, reward, [done]*self.agentNums, status
-
-
+	
+	def visualizeState(self, reward):
+		self.screen.fill((0,0,0))
+		visualized = self.curState
+		if self.curState[0] == "GOAL" or self.curState[0] == "OUT_OF_BOUNDS":
+			visualized = self.prevState
+		for row in range(5):
+			for column in range(5):
+				color = (0, 255, 0)
+				if [column, row] in visualized[0][1]:
+					color = (255, 0, 0)
+				if [column, row] in visualized[0][0]:
+					color = (255, 255, 255)
+				if [column, row] in visualized[0][2]:
+					color = (0, 0, 255)
+				if [column, row] in visualized[0][0] and [column, row] in visualized[0][2]:
+					color = (127, 127, 255)
+				if [column, row] in visualized[0][0] and [column, row] in visualized[0][1]:
+					color = (255, 127, 127)
+				if reward == 1 and [column, row] in visualized[0][2]:
+					color = (255, 0, 255)
+                		pygame.draw.rect(self.screen, color,[(self.MARGIN + self.WIDTH) * column + self.MARGIN, (self.MARGIN + self.HEIGHT) * row + self.MARGIN,
+                    		self.WIDTH,self.HEIGHT])
+		self.clock.tick(60)
+		pygame.display.flip()
 
 class Dynamics(object):
 	def __init__(self):
