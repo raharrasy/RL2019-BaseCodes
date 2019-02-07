@@ -1,10 +1,10 @@
-# Task 3 - Independent Q-Learning, Joint Action Learning, and WoLF-PHC for discrete multiagent RL.
+# Exercise 4 - Independent Q-Learning, Joint Action Learning, and WoLF-PHC for discrete multiagent RL.
 
-In this task, you are required to implement an attacking agent in a discretized soccer domain. We move away from HFO for this task and just use a simple discretized domain. These implemented agents will be controlled using the Independent Q-Learning (**Like Task 2, each agent independently using Q-Learning without sharing information with other agents**), Joint Action Learning ([**Claus and Boutilier, 1998**](https://www.aaai.org/Papers/AAAI/1998/AAAI98-106.pdf)) and WoLF-PHC ([**Bowling and Veloso, 2001**](http://www.cs.cmu.edu/~mmv/papers/01ijcai-mike.pdf)). 
+In this task, you are required to implement an attacking agent in a discretized soccer domain. We move away from HFO for this task and just use a simple discretized domain. These implemented agents will be controlled using the Independent Q-Learning (**Like Exercise 2, each agent independently using Q-Learning without sharing information with other agents**), Joint Action Learning ([**Claus and Boutilier, 1998**](https://www.aaai.org/Papers/AAAI/1998/AAAI98-106.pdf)) and WoLF-PHC ([**Bowling and Veloso, 2001**](http://www.cs.cmu.edu/~mmv/papers/01ijcai-mike.pdf)). 
 
-Just like in Task 2, each position in the gridworld is associated with a probability of scoring goals. Also, defending NPCs are positioned in parts of the environment and acts as obstacles. Ball carrying agents will also be punished with a penalty if it moves into a grid occupied by a defensive NPC. The position of defense NPCs will not change during the course of each episode.
+Just like in Exercise 2, each position in the gridworld is associated with a probability of scoring goals. Also, defending NPCs are positioned in parts of the environment and acts as obstacles. Ball carrying agents will also be punished with a penalty if it moves into a grid occupied by a defensive NPC. The position of defense NPCs will not change during the course of each episode.
 
-However, unlike Task 2, the team of agents will only receive a reward of **+1** if one of the members of the team covers the opponent by moving into the sme grid location as the opponent while the kick is converted into a goal. As a result, an optimal policy for this domain should be one where an agent covers the opponent while the other moves to an advantageous location and scores a goal. This requires some coordination between both of the trained agents.
+However, unlike Exercise 2, the team of agents will only receive a reward of **+1** if one of the members of the team covers the opponent by moving into the sme grid location as the opponent while the kick is converted into a goal. As a result, an optimal policy for this domain should be one where an agent covers the opponent while the other moves to an advantageous location and scores a goal. This requires some coordination between both of the trained agents.
 
 Full codes for the discretized Multiagent RL domain can be found in the `DiscreteMARLUtils` folder. In particular, `DiscreteMARLUtils/Environment.py` contains the implementation of the interface between the HFO domain and your agent controller. You must then implement algorithms that choose actions to take given a certain state, and pass it through the provided `act` method. This environment will respond by providing your agents with the next state, reward, and episode completion information. 
 
@@ -15,7 +15,7 @@ Full codes for the discretized Multiagent RL domain can be found in the `Discret
 
 ## Environment Files (**Should not be modified**)
 1. `DiscreteMARLUtils/Environment.py`
-   - Specifies the environment for Task 3. Mostly similar with Task 2, just without any usage of HFO APIs. Also check at the reward functions to see how it's calculated.
+   - Specifies the environment for Exercise 4. Mostly similar with Exercise 2, just without any usage of HFO APIs. Also check at the reward functions to see how it's calculated.
 2. `DiscreteMARLUtils/Agent.py`
    - Specifies the necessary functions that all agents must have.
 
