@@ -1,4 +1,4 @@
-# Coursework 1 - On-Policy First Visit Monte Carlo Control
+# Exercise 2 - On-Policy First Visit Monte Carlo Control
 
 You are required to implement the On-Policy First Visit Monte Carlo Control with epsilon-soft policies using the codes provided in `MonteCarloBase.py`. Before you proceed, install the HFO Domain first by following the necessary steps outlined in Task2/README.md. Your task is to extend `MonteCarloBase.py` by implementing functions that have yet been implemented.
 
