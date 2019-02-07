@@ -12,8 +12,6 @@ echo "Environment Initialized"
 
 sleep 5
 ./QLearningAgent.py --numOpponents=1 &
-# Remove the line above with the line below when grading
-#./QLearningUnitTest.py &
 echo "Attacker Controller Initialized"
 
 sleep 5
