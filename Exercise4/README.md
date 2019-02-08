@@ -34,7 +34,7 @@ Agents only receive non-zero rewards at the completion of each episodes. In this
 Environment transition resulting from the actions are stochastic. For the dribbling related actions, there will be a small probability for agents to end up dribbling into an adjacent (but wrong) grid. There is also some possibility of agents kicks going wayward from the goal after executing the `KICK` action. This probability of kicking the ball depends on the location of the grid that the agent executes the `KICK` action from.
 
 ## Implementing Your Own Agents
-You are required to implement the Policy Iteration, Independent Q-Learning, Joint Action Learning, and WoLF-PHC algorithm. To this end, we've provided you with code snippets which indicates the functions that you should implement. To find the skeleton codes for each algorithm, open the `IndependentQLearning`, `JointActionLearner`, and `WoLFPHCAgent` folders respectively. Further instructions for each task can be found in the markdown files inside the aforementioned folders.
+You are required to implement Independent Q-Learning, Joint Action Learning, and WoLF-PHC. To this end, we've provided you with code snippets which indicates the functions that you should implement. To find the skeleton codes for each algorithm, open the `IndependentQLearning`, `JointActionLearner`, and `WoLFPHCAgent` folders respectively. Further instructions for each task can be found in the markdown files inside the aforementioned folders.
 
 ## Dependencies
 The `DiscreteMARLUtils/Environment.py` depends on the `pygame` package to visualize the environment. Therefore, if you'd like to get a visualization of your agent, you should install `pygame` using the code below. 
