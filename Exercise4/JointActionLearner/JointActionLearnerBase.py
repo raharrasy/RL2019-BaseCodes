@@ -3,8 +3,8 @@
 
 import random
 import argparse
-from DiscreteMarlUtil.Environment import DiscreteMARLEnvironment
-from DiscreteMarlUtil.Agent import Agent
+from DiscreteMARLUtils.Environment import DiscreteMARLEnvironment
+from DiscreteMARLUtils.Agent import Agent
 from copy import deepcopy
 import itertools
 		
