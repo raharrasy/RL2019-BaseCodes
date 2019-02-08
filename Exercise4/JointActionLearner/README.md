@@ -1,4 +1,4 @@
-# Task 3 - Joint Action Learner.
+# Exercise 4 - Joint Action Learner.
 
 In this task, you are required to implement the Joint Action Learning algorithm ([**Claus and Boutilier, 1998**](https://www.aaai.org/Papers/AAAI/1998/AAAI98-106.pdf)). In general, this algorithm follows similar steps with the Q-Learning algorithm. However, unlike Q-Learning, the Q-tables are defined for joint actions. Additionally, this algorithm also maintains a model of opponent behaviour which will be used to calculate the updates during the training process. 
 
