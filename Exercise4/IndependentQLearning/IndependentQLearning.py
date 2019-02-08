@@ -3,8 +3,8 @@
 
 import random
 import argparse
-from DiscMARLUtils.Environment import DiscreteMARLEnvironment
-from DiscMARLUtils.Agent import Agent
+from DiscreteMARLUtils.Environment import DiscreteMARLEnvironment
+from DiscreteMARLUtils.Agent import Agent
 from copy import deepcopy
 		
 class IndependentQLearningAgent(Agent):
@@ -52,7 +52,7 @@ if __name__ == '__main__':
 			
 		while status[0]=="IN_GAME":
 			for agent in agents:
-				learningRate, epsilon = agent.computeHyperparameters(numTakenActions, episodeNumber)
+				learningRate, epsilon = agent.computeHyperparameters(numTakenActions, episode)
 				agent.setEpsilon(epsilon)
 				agent.setLearningRate(learningRate)
 			actions = []
