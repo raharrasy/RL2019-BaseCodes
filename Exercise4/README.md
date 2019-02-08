@@ -35,3 +35,11 @@ Environment transition resulting from the actions are stochastic. For the dribbl
 
 ## Implementing Your Own Agents
 You are required to implement the Policy Iteration, Independent Q-Learning, Joint Action Learning, and WoLF-PHC algorithm. To this end, we've provided you with code snippets which indicates the functions that you should implement. To find the skeleton codes for each algorithm, open the `IndependentQLearning`, `JointActionLearner`, and `WoLFPHCAgent` folders respectively. Further instructions for each task can be found in the markdown files inside the aforementioned folders.
+
+## Dependencies
+The `DiscreteMARLUtils/Environment.py` depends on the `pygame` package to visualize the environment. Therefore, if you'd like to get a visualization of your agent, you should install `pygame` using the code below. 
+```
+conda install -c cogsci pygame
+```
+
+Nevertheless, the visualization slows down the execution of the code. Hence, it is not recommended to use the visualizations when training the agent.
