@@ -9,7 +9,7 @@ from copy import deepcopy
 		
 class IndependentQLearningAgent(Agent):
 	def __init__(self, learningRate, discountFactor, epsilon, initVals=0.0):
-		super(QLearningAgent, self).__init__()
+		super(IndependentQLearningAgent, self).__init__()
 
 	def setExperience(self, state, action, reward, status, nextState):
 		raise NotImplementedError
