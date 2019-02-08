@@ -62,7 +62,7 @@ The performance of the agent is going to be based on average time to goal. Under
 
 ```
 model = ValueNetwork()
-model.load_state_dict(torch.load(params_<k-th storage time>))
+model.load_state_dict(torch.load('params_<k-th storage time>'))
 ```
 
 Using these parameters, we would then be able to load your neural network and test it's performance. This also prevents us from having to train a neural network for each student, which might take too long.
