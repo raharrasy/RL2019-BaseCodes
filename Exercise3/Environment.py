@@ -103,7 +103,7 @@ class HFOEnv(object):
 		self.hfo.act(QUIT)
 
 	# Preprocess the state representation in this function
-	def preprocessState(self.state):
+	def preprocessState(self, state):
 		return state
 
 
