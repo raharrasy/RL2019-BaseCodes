@@ -1,4 +1,4 @@
-# Task 3 - Independent Q-Learning
+# Exercise 4 - Independent Q-Learning
 
 The instructions for this task is exactly the same with Task 2's Q-Learning instructions. The function that you implement have the same functionality with it's Q-Learning counterpart. The difference between the code provided here and the Q-Learning code in Task 2 only lies in the `__main__` function.
 
