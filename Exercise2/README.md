@@ -1,4 +1,4 @@
-# Exercise 2 - Q-Learning, SARSA, and first-visit MC control for soft policies
+# Exercise 2 - Q-Learning, SARSA, and first-visit MC control with soft policies
 
 In this exercise, you are required to implement an attacking agent in the discretized Half Field Offense (HFO) domain. These agents will be controlled using the Q-Learning (**Section 6.5 of the book**), SARSA (**Section 6.4 of the book**), and first visit Monte Carlo control for soft policies (**Algorithm in page 101 of the book**). Just like in Exercise 1, each position in the gridworld is associated with a probability of scoring goals. Also, defending NPCs are positioned in parts of the environment and acts as obstacles. If an agent manages to score a goal in an episode, the agent receives a reward of **+1** and the episode ends. Agents will also be punished with a penalty if it moves into a grid occupied by a defensive NPC. The position of defense NPCs will not change during the course of each episode. 
 
