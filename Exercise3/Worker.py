@@ -14,6 +14,10 @@ def computeTargets(reward, nextObservation, discountFactor, done, targetNetwork)
 
 def computePrediction(state, action, valueNetwork):
 	
+# Function to save parameters of a neural network in pytorch.
+def saveModelNetwork(model, strDirectory):
+	torch.save(model.state_dict(), strDirectory)
+	
 
 
 
