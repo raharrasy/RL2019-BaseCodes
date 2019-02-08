@@ -6,7 +6,7 @@ class BellmanDPSolver(object):
 
 	def initVs(self):
 
-	def BellmanUpdate():
+	def BellmanUpdate(self):
 
 		raise NotImplementedError
 		
