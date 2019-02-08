@@ -25,10 +25,8 @@ class DiscreteMARLEnvironment(object):
 			self.WIDTH = 20
 			self.HEIGHT = 20
 			self.MARGIN = 2
-
-
-            pygame.display.set_caption("MARL Gridworld")
-            self.clock = pygame.time.Clock()
+			pygame.display.set_caption("MARL Gridworld")
+			self.clock = pygame.time.Clock()
 
 	def reset(self):
 
@@ -189,8 +187,8 @@ class DiscreteMARLEnvironment(object):
 					color = (255, 127, 127)
 				if reward == 1 and [column, row] in visualized[0][2]:
 					color = (255, 0, 255)
-                		pygame.draw.rect(self.screen, color,[(self.MARGIN + self.WIDTH) * column + self.MARGIN, (self.MARGIN + self.HEIGHT) * row + self.MARGIN,
-                    		self.WIDTH,self.HEIGHT])
+				pygame.draw.rect(self.screen, color,[(self.MARGIN + self.WIDTH) * column + self.MARGIN, (self.MARGIN + self.HEIGHT) * row + self.MARGIN,
+								     self.WIDTH,self.HEIGHT])
 		self.clock.tick(60)
 		pygame.display.flip()
 
