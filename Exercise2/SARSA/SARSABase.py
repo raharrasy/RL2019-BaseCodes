@@ -8,7 +8,7 @@ import argparse
 
 class SARSAAgent(Agent):
 	def __init__(self, learningRate, discountFactor, epsilon, initVals=0.0):
-		super(SARSABase, self).__init__()
+		super(SARSAAgent, self).__init__()
 
 	def learn(self):
 		raise NotImplementedError
