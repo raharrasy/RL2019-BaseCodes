@@ -1,12 +1,12 @@
 # Exercise 4 - Joint Action Learner.
 
-In this task, you are required to implement the Joint Action Learning algorithm ([**Claus and Boutilier, 1998**](https://www.aaai.org/Papers/AAAI/1998/AAAI98-106.pdf)). In general, this algorithm follows similar steps with the Q-Learning algorithm. However, unlike Q-Learning, the Q-tables are defined for joint actions. Additionally, this algorithm also maintains a model of opponent behaviour which will be used to calculate the updates during the training process. 
+In this task, you are required to implement the Joint Action Learning algorithm. In general, this algorithm follows similar steps with the Q-Learning algorithm. However, unlike Q-Learning, the Q-tables are defined for joint actions. Additionally, this algorithm also maintains a model of opponent behaviour which will be used to calculate the updates during the training process. 
 
 The opponent model should be based on the actions of opponent agents observed at a particular state. In this case, for each state, the model should store an empirical distribution of observed opponent behaviour under each state. When the state has yet been visited, initialize the opponent model using a discrete uniform distribution.
 
 For the state-joint action value table, implement updates that are still the same with your usual Q-Learning update. However, unlike Q-Learning, the maximum next state value is computed as the value of the best action that the modelling agent can take in the next state. The value of the best action is the the expected value of action under the distribution of actions that the opponent can take. In turn, the distribution of actions that the opponent can take is calculated based on the opponent model the agent have learnt.
 
-In short, this is similar to the JAL algorithm provided in class.
+For a concise description of the algorithm, refer to Table 4 from the works of [**Bowling and Veloso, 2001**](http://www.cs.cmu.edu/~mmv/papers/02aij-mike.pdf).
 
 ## Specifications
 ### Automarking requirements
