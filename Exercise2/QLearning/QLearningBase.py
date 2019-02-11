@@ -44,7 +44,7 @@ if __name__ == '__main__':
 	hfoEnv.connectToServer()
 
 	# Initialize a Q-Learning Agent
-	agent = QLearningAgent(learningRate = 0.1, discountFactor = 0.99, epsilon = 1.0)
+	agent = QLearningBase(learningRate = 0.1, discountFactor = 0.99, epsilon = 1.0)
 	numEpisodes = args.numEpisodes
 
 	# Run training using Q-Learning
