@@ -23,7 +23,7 @@ To get an example of the usage of this DiscreteHFO domain, you can see an exampl
 5. `DiscreteHFO/Goalkeeper.py`
    - File to initialize the Goalkeeper.
    
-## Caller Files (**Should not be modified**)
+## Caller Files (**Can be modified, adapt to your existing directories if necessary**)
 1. `QLearning/QLearningAgent.sh`
    - This file runs all the necessary files to initialize a discrete HFO domain and run a Q-Learning agent.
 2. `SARSA/SARSAAgent.sh`
