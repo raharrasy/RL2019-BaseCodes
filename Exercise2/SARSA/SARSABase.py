@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 # encoding utf-8
 
-import random
 from DiscreteHFO.HFOAttackingPlayer import HFOAttackingPlayer
 from DiscreteHFO.Agent import Agent
-import argparse
 
 class SARSAAgent(Agent):
 	def __init__(self, learningRate, discountFactor, epsilon, initVals=0.0):

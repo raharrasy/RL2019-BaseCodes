@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # encoding utf-8
 
+from DiscreteHFO.HFOAttackingPlayer import HFOAttackingPlayer
+from DiscreteHFO.Agent import Agent
+
 class MonteCarloAgent(Agent):
 	def __init__(self, discountFactor, epsilon, initVals=0.0):
 		super(MonteCarloAgent, self).__init__()
