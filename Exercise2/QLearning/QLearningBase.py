@@ -6,9 +6,9 @@ from DiscreteHFO.HFOAttackingPlayer import HFOAttackingPlayer
 from DiscreteHFO.Agent import Agent
 import argparse
 
-class QLearningBase(Agent):
+class QLearningAgent(Agent):
 	def __init__(self, learningRate, discountFactor, epsilon, initVals=0.0):
-		super(QLearningBase, self).__init__()
+		super(QLearningAgent, self).__init__()
 		
 
 	def learn(self):
@@ -44,7 +44,7 @@ if __name__ == '__main__':
 	hfoEnv.connectToServer()
 
 	# Initialize a Q-Learning Agent
-	agent = QLearningBase(learningRate = 0.1, discountFactor = 0.99, epsilon = 1.0)
+	agent = QLearningAgent(learningRate = 0.1, discountFactor = 0.99, epsilon = 1.0)
 	numEpisodes = args.numEpisodes
 
 	# Run training using Q-Learning
