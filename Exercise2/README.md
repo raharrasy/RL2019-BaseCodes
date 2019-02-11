@@ -65,5 +65,12 @@ Finally, clone this repository into the `example` directory in the `HFO` folder.
 ## Example
 After doing the necessary setup, you can find an example implementation of a discrete random agent inside the `RandomAgentExample` folder. You can find the controller for this random agent in `DiscretizedAttackingController.py`. At each timestep the controller selects an action and pass it through `step` method in line 30. As a response, the environment will return the next state observed by the agent after executing the action, the resulting reward, a flag indicating the end of an episode, and the status of the game. 
 
+To execute the example, copy the files inside `RandomAgentExample` into it's parent directory and run `RandomAgent.sh`. Assuming your current working directory is `Exercise2`. You could also run the base files of other agents using similar commands with file names appropriately replaced to suit the task you're working on.
+
+```
+cp RandomAgentExample/* .
+./RandomAgent.sh
+```
+
 Full information of the possible statuses for the HFO environment can be seen at `HFO/bin/HFO` script inside the HFO codes given in the original HFO repository.
 
