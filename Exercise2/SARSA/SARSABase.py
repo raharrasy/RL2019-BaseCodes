@@ -57,6 +57,7 @@ if __name__ == '__main__':
 			obsCopy = observation.copy()
 			agent.setState(agent.toStateRepresentation(obsCopy))
 			action = agent.act()
+			numTakenActions += 1
 
 			nextObservation, reward, done, status = hfoEnv.step(action)
 			print(obsCopy, action, reward, nextObservation)
