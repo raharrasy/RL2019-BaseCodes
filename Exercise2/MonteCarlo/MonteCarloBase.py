@@ -30,6 +30,9 @@ class MonteCarloAgent(Agent):
 	def setEpsilon(self, epsilon):
 		raise NotImplementedError
 
+	def computeHyperparameters(self, numTakenActions, episodeNumber):
+		raise NotImplementedError
+
 
 if __name__ == '__main__':
 

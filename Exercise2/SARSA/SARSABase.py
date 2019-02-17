@@ -21,6 +21,9 @@ class SARSAAgent(Agent):
 	def setExperience(self, state, action, reward, status, nextState):
 		raise NotImplementedError
 
+	def computeHyperparameters(self, numTakenActions, episodeNumber):
+		raise NotImplementedError
+
 	def toStateRepresentation(self, state):
 		raise NotImplementedError
 
