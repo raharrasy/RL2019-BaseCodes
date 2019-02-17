@@ -3,6 +3,7 @@
 
 from DiscreteHFO.HFOAttackingPlayer import HFOAttackingPlayer
 from DiscreteHFO.Agent import Agent
+import argparse
 
 class SARSAAgent(Agent):
 	def __init__(self, learningRate, discountFactor, epsilon, initVals=0.0):
@@ -33,8 +34,16 @@ class SARSAAgent(Agent):
 		raise NotImplementedError
 
 if __name__ == '__main__':
+
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--id', type=int, default=0)
+	parser.add_argument('--numOpponents', type=int, default=0)
+	parser.add_argument('--numTeammates', type=int, default=0)
+	parser.add_argument('--numEpisodes', type=int, default=500)
+
+	args=parser.parse_args()
 	
-	numEpisode = 10
+	numEpisodes = args.numEpisodes
 	# Initialize connection to the HFO environment using HFOAttackingPlayer
 	hfoEnv = HFOAttackingPlayer(numOpponents = args.numOpponents, numTeammates = args.numTeammates, agentId = args.id)
 	hfoEnv.connectToServer()
@@ -53,7 +62,7 @@ if __name__ == '__main__':
 		epsStart = True
 
 		while status==0:
-			learningRate, epsilon = agent.computeHyperparameters(self, numTakenActions, episode)
+			learningRate, epsilon = agent.computeHyperparameters(numTakenActions, episode)
 			obsCopy = observation.copy()
 			agent.setState(agent.toStateRepresentation(obsCopy))
 			action = agent.act()

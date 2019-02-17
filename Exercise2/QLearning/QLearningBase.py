@@ -3,6 +3,7 @@
 
 from DiscreteHFO.HFOAttackingPlayer import HFOAttackingPlayer
 from DiscreteHFO.Agent import Agent
+import argparse
 
 class QLearningAgent(Agent):
 	def __init__(self, learningRate, discountFactor, epsilon, initVals=0.0):
@@ -37,6 +38,15 @@ class QLearningAgent(Agent):
 		raise NotImplementedError
 
 if __name__ == '__main__':
+
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--id', type=int, default=0)
+	parser.add_argument('--numOpponents', type=int, default=0)
+	parser.add_argument('--numTeammates', type=int, default=0)
+	parser.add_argument('--numEpisodes', type=int, default=500)
+
+	args=parser.parse_args()
+
 	# Initialize connection with the HFO server
 	hfoEnv = HFOAttackingPlayer(numOpponents = args.numOpponents, numTeammates = args.numTeammates, agentId = args.id)
 	hfoEnv.connectToServer()
@@ -52,7 +62,7 @@ if __name__ == '__main__':
 		observation = hfoEnv.reset()
 		
 		while status==0:
-			learningRate, epsilon = agent.computeHyperparameters(self, numTakenActions, episode)
+			learningRate, epsilon = agent.computeHyperparameters(numTakenActions, episode)
 			agent.setEpsilon(epsilon)
 			agent.setLearningRate(learningRate)
 			
