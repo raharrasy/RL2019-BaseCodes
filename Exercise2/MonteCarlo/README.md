@@ -12,10 +12,8 @@ This init function should initialize all the necessary parameters for training a
 
 Additionally, ensure that the initial Q-Values of all state-action pairs are initialized to zero prior to training. Although you can technically use any initialization value for this method, we require this as a means for unit testing your implementations.
 
-#### `learn()`
+#### `learn()` - Used in Automarking
 This is the most important function you need to implement in this task. This function has no input parameters. On the other hand, it should return **a tuple of two entries**. The first entry is the **complete Q-value table of all states**. The second entry is the **Q-value estimate after update of the states you've encountered in the episode ordered by their first time appearance in the episode**.
-
-As an example, assume that your states are represented as alphabets and your actions as numbers. You encountered an episode where the sequence of states starting from the first to the last are `("A",1), ("B",3), ("C",1), ("A",1), and finally ("A",2)`. Then the second entry must return `[Q("A",1), Q("B",3), Q("C",1), Q("A",2)]` after training.
 
 It will be used by the automarker to compare the correctness of your implementation against the solution. 
 
@@ -47,9 +45,32 @@ To see how your implemented function interact with each other to train the agent
 
 ## Marking details
 ### Performance marking
-Using similar codes as what you've seen in `__main__`, we are going to run your agent on a randomly sampled MDP and compare it's performance to our solution. Performance is measured by running experiments using the same number of episodes at each experiment. We then average the rewards of the agent and plot this quantity.
+Using similar codes as what you've seen in `__main__`, we are going to run your agent on a randomly sampled MDP and compare it's performance to our solution. For details on the experiment, refer to the **Marking** section in Exercise 2's README.
 
 ### Unit test marking
-We compare the results of updates from `learn()`. This function should return the difference between the value of the updated state-action pairs that you've encountered throughout the episode.
+We compare the results of updates from `learn()`. This function should return  **a tuple of two entries**. The first entry is the **complete Q-value table of all states**. The second entry is the **Q-value estimate after update of the states you've encountered in the episode ordered by their first time appearance in the episode**. We will only use the second entry for automarking.
 
-As an example, assume that your states are represented as alphabets and your actions as numbers. You encountered an episode where the sequence of states starting from the first to the last are `("A",1), ("B",3), ("C",1), ("A",1), and finally ("A",2)`. Then the second entry must return `[Q("A",1), Q("B",3), Q("C",1), Q("A",2)]` after training.
+As an example, let's say that an agent is exposed to the following sequence of experience:
+```
+Episode 1
+Timestep Number, State, Action, Reward, Next State
+1, ((1,1),(2,1)), MOVE_RIGHT, -0.4, ((2,1),(2,1))
+2, ((2,1),(2,1)), MOVE_LEFT, 0.0, ((1,1),(2,1))
+3, ((1,1),(2,1)), MOVE_RIGHT, 0.0, ((0,1),(2,1))
+4, ((0,1),(2,1)), MOVE_RIGHT, 0.0, OUT_OF_TIME
+
+Episode 2
+Timestep Number, State, Action, Reward, Next State
+1, ((1,1),(2,1)), MOVE_RIGHT, 0.0, ((0,1),(2,1))
+2, ((0,1),(2,1)), MOVE_LEFT, 0.0, ((1,1),(2,1))
+3, ((1,1),(2,1)), MOVE_RIGHT, 0.0, ((0,1),(2,1))
+4, ((0,1),(2,1)), MOVE_RIGHT, 0.0, OUT_OF_TIME
+```
+
+Assuming an initial value of 0 for each state-action pair and a discount rate of 1, these should be the outputs of the learn functions at the end of each timestep :
+
+```
+Episode, learn() result second entry
+1, [-0.4, 0, 0] (Denotes [Q<((1,1),(2,1)), MOVE_RIGHT>, Q<((2,1),(2,1)), MOVE_LEFT>, Q<((0,1),(2,1)), MOVE_RIGHT>] after training)
+2, [-0.2, 0, 0] (Denotes [Q<((1,1),(2,1)), MOVE_RIGHT>, Q<((0,1),(2,1)), MOVE_LEFT>, Q<((0,1),(2,1)), MOVE_RIGHT>] after training)
+```
