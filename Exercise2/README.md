@@ -18,7 +18,7 @@ ssh -X student.compute
 
 Or use these commands for working in the MLP clusters:
 ```
-ssh -X <UUN>@student.ssh.inf.ed.ac.uk\
+ssh -X <UUN>@student.ssh.inf.ed.ac.uk
 ssh -X <mlp1/mlp2>
 ```
 
