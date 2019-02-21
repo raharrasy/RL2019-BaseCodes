@@ -1,4 +1,4 @@
-# Exercise 3 - Asynchronous Q-Learning with Function Approximation in HFO
+# Exercise 3 - Asynchronous 1-Step Q-Learning with Function Approximation in HFO
 
 ## General Description
 
