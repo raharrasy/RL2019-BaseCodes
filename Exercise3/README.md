@@ -1,12 +1,62 @@
 # Exercise 3 - Asynchronous Q-Learning with Function Approximation in HFO
 
-In this task, you are required to implement an attacking agent in the HFO domain that learns using the Asynchronous Q-Learning  algorithm ([**Mnih et al., 2016**](https://arxiv.org/pdf/1602.01783.pdf)). Unlike previous tasks, we want you to design your own reward functions to train the agent. In general, choosing a reward function that enables easier learning for agents is a major part of deep reinforcement learning research. You are also given freedom to decide on the state representations used to train your agents. Just like rewards, designing appropriate state representation is a major part of deep reinforcement learning research.
+## General Description
 
-At the end, we will require you to store the parameters of your agents every 1 million global timesteps. We would then test the performance of your agents based on these submitted parameters. The performance of the agent will be measured based on average time to goal in each episode. In the event where your agent unsuccessfully scores a goal in an episode, we define the time to goal at that episode as the maximum allowed number of timesteps for that episode.
+In this task, you are required to implement an attacking agent in the HFO domain that learns using the one step Asynchronous Q-Learning  algorithm ([**Mnih et al., 2016**](https://arxiv.org/pdf/1602.01783.pdf)). Unlike variants of the Deep Q-Network algorithm, asynchronous training does not require you to use an experience replay to store the experiences encountered throughout the agents' learning process. However, it requires you to run multiple threads, each having it's own separate instance of the environment. 
 
-The interface between agent and environment will be similar with previous tasks. You can check this inside `Environment.py`. Since asynchronous training requires running several environments at once, each of your learning process needs to initialize a single environment at the beginning. To start a new instance of an environment, initialize a HFO server using `startEnv()` and establish connections to the HF0 server using `connectToServer()`. In addition to this, don't forget to initialize each server with different connection ports because you might not initialize two different servers that use the same ports for connections with agents. Also, since you want each environment to present agents with different states, don't forget to initialize different environments with different seeds.
+In general, these are the different steps that needs to be done to implement an asynchronous Q-Learning agent:
 
-## Implemented Files (**Contains functions to be implemented**)
+1. Create a global value network which will later be periodically copied to the separate threads. 
+2. Create separate threads, each equipped with a copy of the environment and a local value network. 
+3. Initialize the value of the local value networks using the same values as your global value network. 
+4. In each thread, run the Q-Learning algorithm based on your local value functions and calculate the updates using the gathered experiences.
+5. Periodically push the gradients from the local networks to the global network and update the global network parameters. 
+6. After each update to the global network, copy the parameters of the global network into the local network that provided the update.
+
+
+For this task, we will require you to store the parameters of your agents every 1 million global timesteps. We would then test the performance of your agents based on these submitted parameters. The performance of the agent will be measured based on average time to goal in each episode. In the event where your agent unsuccessfully scores a goal in an episode, we define the time to goal at that episode as the maximum allowed number of timesteps for that episode, which is 500 timesteps.
+
+## Getting Started
+
+### Starting an environment
+
+The interface between agent and environment will be similar with previous tasks. You can find the necessary codes inside `Environment.py`. Since asynchronous training requires running several environments at once, each of your learning process needs to initialize a single environment at the beginning. 
+
+To start a new instance of an environment, you **must** use the following commands :
+
+```
+port = <Specified port number>
+seed = <Specified seed number>
+hfoEnv = HFOEnv(numTeammates=0, numOpponents=1, port=port, seed=seed)
+hfoEnv.connectToServer()
+
+# This runs a random agent
+episodeNumber = 0
+while True:
+   action = random.randint(0,3)
+   act = hfoEnv.possibleActions[action]
+   newObservation, reward, done, status, info = hfoEnv.step(act)
+   print(newObservation, reward, done, status, info)
+                
+   if done:
+      episodeNumber += 1
+```
+
+During training, ensure that the port numbers of the different environments that you've initialized are different. If you use the same port numbers, one of the environment will not get initialized and you will get an error. Additionally, you'd also like the seeds of different environment to be different. This allows you to have different state distributions across different environments which provides a more stable gradient update for the agents.
+
+### The HFO environment
+   
+#### State Space
+You are allowed to define your own state spaces. However, your state spaces will mostly be based on HFO's `LOW_LEVEL_FEATURE_SET` and the `HIGH_LEVEL_FEATURE_SET`. You are free to use either one of them. Refer to the HFO manual to see the features provided in each feature set.
+
+#### Action Spaces
+You are to use the discrete actions provided by the HFO domain. These actions include `SHOOT`, `DRIBBLE`, `MOVE`, and `GO_TO_BALL`. You can find the exact specification on what each action does on the HFO manual. 
+
+#### Reward Functions
+You are allowed to define your own reward functions for this task. Make sure that your reward function enables faster learning for agents to score goals.
+
+### Implementing your solution
+#### Implemented Files (**Contains functions to be implemented**)
 1. `Networks.py` 
    - Define the architecture of the **torch** neural network that you're using inside `__init__.py`
    - Define the forward computation used in your neural network inside `forward(inputs)`
@@ -20,54 +70,99 @@ The interface between agent and environment will be similar with previous tasks.
 4. `main.py` 
    - This script should contain the necessary processes to run your asynchronous agent. We've provided an code snippet on how to asynchronously call multiple instances of the training function `train()` in `Worker.py` in the `__main__` function. 
 
-## Additional Scripts (**Might be useful for training**)
+#### Additional Scripts (**Might be useful for training**)
 1. `SharedAdam.py`
-   -. We provide an example implementation of how to share pytorch optimizer statistics across multiple workers inside this function. In the original A3C paper, this reportedly produced better performance. You are free to use this file or even create another shared optimizer implementation of the optimizer you've chosen.
+   - We provide an example implementation of how to share pytorch optimizer statistics across multiple workers inside this function. In the original A3C paper, this reportedly produced better performance compared to using separate optimizers between threads. You are free to use this file or even create another shared optimizer implementation of the optimizer you've chosen.
+   - Alternatively, initializing a separate optimizer for each thread is also an option. However, this might not perform as well as the shared optimizer. In this case, you can easily do this by initializing your favorite optimizer inside each of your threads (check out the torch.optim packages).
 
-## Environment Files
+#### Environment Files
 1. `Environment.py`
-   - File to establish connections with HFO, define rewards for agents(**to be implemented by you**)
- and preprocess state representations(**to be implemented by you**) gathered from the HFO domain. Also, you are allowed to change the state representation used by switching from `LOW_LEVEL_FEATURE_SET` to `HIGH_LEVEL_FEATURE_SET` in line 56 of `Environment.py`. Other functions inside `Environment.py` **should not be modified**.
+   - File to establish connections with HFO, define rewards for agents and preprocess state representations gathered from the HFO domain. Rewards and state representations can be derived from HFO's `LOW_LEVEL_FEATURE_SET` or `HIGH_LEVEL_FEATURE_SET`. You are allowed to choose any of them to base your rewards and states from. Just ensure that you've put the correct choice in line 56 of `Environment.py`. 
+   - Apart from the part on choosing your state representation (line 56) and the implemented functions, other parts of `Environment.py` **should not be modified**.
+
 2. `Goalkeeper.py` (**Should not be modified**)
-   - File to control an NPC Goalkeeper in the environment. This NPC just runs around the goalposts throughout the episode.
-   
-## State Space
-HFO provides two different possible state spaces, the `LOW_LEVEL_FEATURE_SET` and the `HIGH_LEVEL_FEATURE_SET`. You are free to use either one of them. Refer to the original HFO repository to see the features provided in each feature set. In our case, we are going to use noiseless observations of the feature space.
+   - An NPC Goalkeeper implementation for the environment. This NPC just runs around the goalposts throughout the episodes.
 
-## Action Spaces
-You are to use the discrete actions provided by the HFO domain. These actions include `SHOOT`, `DRIBBLE`, `MOVE`, and `GO_TO_BALL`. You can find the exact specification on what each action does on the original HFO repository. 
 
-## Reward Functions
-You are allowed to define your own reward functions for this task. Make sure that your reward function enables learning advantageous behaviour for agents to score goals.
-
-## Setup and Requirements
-
-The codes can be executed in your own DICE machines. However, you need to first download the necessary packages before running them. In this task, you are going to implement an agent in the Half Field Offense (HFO) domain. Full installation intructions and documentation of this environment can be seen [in this repository](https://github.com/raharrasy/HFO). Use the following commands to install the dependencies for HFO in your DICE machines:
-
-```
-conda create --name <Environment Name> numpy python=3.5
-source activate <Environment Name>
-conda install -c anaconda boost
-conda install boost
-conda install qt=4
-```  
-
-Finally, clone this repository into the `example` directory in the `HFO` folder. Also, don't forget to read the documentations of the original HFO repository. It would give additional understanding on what the feature spaces for this environment are.
-
-## Marking details
-### Performance marking
+### Marking details
+#### Performance marking
 The performance of the agent is going to be based on average time to goal. Under this metric, several different experiments with different starting states are executed. At each episode, we then measure the number of timesteps that passed until the agents score a goal. In episodes where agents fail to score goals, a default value of the maximum timesteps in an episode (e.g. 500 timesteps) will be used for in the averaging process, otherwise the time to goal is going to be used.
 
-**We require you to store the parameters of your neural network every 1 million global timesteps and include it along with your scripts** under the name `**params_<k-th storage time>**`. To this end, we have provided you a function to save your model parameters in `saveModelNetwork(model, strDirectory)` under `Worker.py`. As an example, after 1 million global steps, store your parameters as `params_1`, `params_2` after 2 million global steps, etc. **Save your models such that you can load the parameters using :**
+**We require you to store the parameters of your neural network every 1 million global timesteps and at the end of training. Then, include it in your submitted files along with your scripts** under the name `**params_<k-th storage time>**`. To this end, we have provided you a function to save your model parameters in `saveModelNetwork(model, strDirectory)` under `Worker.py`. As an example, **after 1 million global steps, store your parameters as `params_1`, `params_2` after 2 million global steps, etc**. At the end of training, save your parameters as **`params_last`**.
 
+To save your model parameters, we have provided the saveModelNetwork() function inside `Worker.py`. You only need to specify the neural network that you are about to store and the name of the file for storage.
+
+#### Unit test marking
+
+We require you to implement two functions that are important to the predicted and target value computation in 1-step Q-Learning.
+We will later test the correctness of **`computeTargets(reward, nextObservation, discountFactor, done, targetNetwork)`** and **`computePrediction(state, action, valueNetwork)`** inside `Worker.py`. These functions have the following inputs :
+
+1. `computeTargets(reward, nextObservation, discountFactor, done, targetNetwork)`
+   - reward, which is a float type data representing the reward achieved by the agent.
+   - nextObservation, which is a 2D pytorch Tensor of the next states' feature representation.
+   - discountFactor, which is a float type data representing the discounting factor used by the agent.
+   - done, which is a boolean which indicates the end of the episode
+   - targetNetwork, which is a pytorch model that will be used to compute the target values for the agents.
+
+2. `computePrediction(state, action, valueNetwork)`
+   - state, which is a 2D pytorch Tensor of the current states' feature representation.
+   - action, which is a integer between 0 and 3 that denotes the index of the actions that are taken.
+     - 0 denotes `MOVE`,
+     - 1 denotes `SHOOT`,
+     - 2 denotes `DRIBBLE`
+     - 3 denotes `GO_TO_BALL`
+   - valueNetwork, which is a pytorch model that will be used to compute the values for the agents.
+
+For the outputs of this function, refer to the following example:
 ```
-model = ValueNetwork()
-model.load_state_dict(torch.load('params_<k-th storage time>'))
+# As an example, we provide you with the following data in the unit test
+
+rawStateRepresentation = [1.0, 2.0, 3.0]
+stateRepresentation = [1.0, 2.0, 4.0]
+reward = 1.0
+discountFactor = 0.99
+done = False
+
+# Let's say agent chose the MOVE action
+action = 0
+
+state = torch.Tensor([rawStateRepresentation])
+nextState = torch.Tensor([stateRepresentation])
+
+# Call computePrediction to get predicted value of current state
+
+curStatePrediction = computePrediction(state, action, valueNetwork)
+
+# This line below should return the predicted value of taking action move at the specified state
+actionValue = curStatePrediction.item()
+
+# Call computeTargets to get predicted 1 step value of current state
+targetPrediction = computeTargets(reward, nextState, discountFactor, done, targetNetwork)
+
+# This line below should return the target value of state action pair
+targetValue = targetPrediction.item()
 ```
 
-Using these parameters, we would then be able to load your neural network and test it's performance. This also prevents us from having to train a neural network for each student, which might take too long.
+During marking, using the same inputs, we will test the computed action values and the target values based on your implemented functions and see if they are similar to our solution. This function should be agnostic to whatever state representation or model that is used. 
 
-### Unit test marking
-For unit testing, we will only test the correctness of **`computeTargets(reward, nextObservation, discountFactor, done, targetNetwork)`** and **`computePrediction(state, action, valueNetwork)`** inside `Worker.py`. These functions will receive a Tensor representing an information from a single state and outputs another tensor with just 1 item inside it. This item should be the target value under the given state for `computeTargets` or the predicted value of the given state for `computePrediction`. When given to `torch.Tensor.item()`, the output tensor should be able to output the element stored inside of it.
+Unit testing will be done by running two short episodes of interaction in the HFO environment and checking at each timestep the correctness of the outputs of your function.
 
+#### Suggested timeline
+We understand that this exercise can be quite overwhelming due to the many components that should be implemented. However, it can be much easier if you go through the exercise following certain steps. In general, these are the steps that we recommend you to go through.
 
+1. Getting prepared
+   - The exercise will be much easier if you understand how the HFO environment works and it's python API. To achieve this, read the HFO Environment manual thoroughly and just take a look inside the example codes provided in `HFO/example`. This will probably take 3-4 hours of your time.
+
+   - Familiarize yourself with pytorch. You don't need to be an expert in neural networks to get into this assignment (In fact, simple linear models can work, too!). But you at least need to be familiar with how to create neural networks in pytorch and how to optimize them based on certain objective functions. To get to this point, read the [tutorials](https://pytorch.org/tutorials) in pytorch's official website. This will probably take 4-5 hours of your time.
+
+   - Understand the asynchronous deep learning training framework. There's an excellent example for asynchronously training supervised learning models using pytorch provided [here](https://github.com/pytorch/examples/tree/master/mnist_hogwild). Use the codes provided here as the foundation for Asynchronous Q-Learning. Reading through this will probably require 2-3 hours of your time.
+
+2. Implementing a minimum working implementation
+   - Don't get too much into details on state representations, rewards, and hyperparameter tuning at this point.
+   - I strongly recommend just using a positive reward for goals and the standard state information provided by HFO. 
+   - If your implementations are correct, even a simple linear model will show an improvement in performance.
+   - This will probably take 25-30 hours of your time.
+   - Also, use smaller learning rates. E.g. , try something like 1e-7 to 1e-4
+
+3. Now, improve your results by running experiments with different parameters, rewards, and state representations.
+4. Strategically devise experiment schemes to better manage your time.
