@@ -48,11 +48,11 @@ git clone https://github.com/raharrasy/RL2019-BaseCodes.git
 ## Working on Task 2
 
 ### Minimum working example
-A minimum working example of how agents interact with the environment is provided in `RandomAgentExample/DiscretizedRandomAttackingController.py`
+A minimum working example of how the agent interacts with the environment is provided in `RandomAgentExample/DiscretizedRandomAttackingController.py`
 
-To start this task, you must first understand how to connect your agents to the HFO server. In the working example, this is provided in line 19-20. At the beginning of each episode, the agent will then need to get an initial state from the environment. An example on how to do this is provided in line 26.
+To start this task, you must first understand how to connect your agent to the HFO server. In the working example, this is provided in line 19-20. At the beginning of each episode, the agent will then need to get an initial state from the environment. An example on how to do this is provided in line 26.
 
-You then need to implement algorithms that choose actions to take given a certain state. Then, pass your action of choice through the provided `step` function in line 30. As a response, the environment will respond by providing your agent with the next state, reward, and episode completion information. 
+You then need to implement algorithms that choose actions to take given a certain state. Then, pass the selected action through the provided `step` function in line 30. As a response, the environment will respond by providing your agent with the next state, reward, and episode completion information. 
 
 To run your implementation and display the environment through the visualizer, do the following steps:
 
@@ -70,9 +70,9 @@ cd ..
 ## Marking
 Marking will be based on the correctness of your implementations and the performance of your agents. 
 
-To examine the correctness of the implementations, we will require you to implement functions that output specific values related to the algorithm being implemented. To find these functions and what they are supposed to output, refer to the README files inside each specific algorithm that you are supposed to implement. Additionally, we've also provided a small section of code in the **main** functions in each python files to provide information on how the functions are supposed to interact. You **must implement your agents such that these sequence of commands in the main function can train your agents**.
+To examine the correctness of the implementations, we will require you to implement functions that output specific values related to the algorithm being implemented. To find these functions and what they are supposed to output, refer to the README files inside each specific algorithm that you are supposed to implement. Additionally, we've also provided a small section of code in the **main** functions in each python files to provide information on how the functions are supposed to interact. You **must implement your agents such that the sequence of commands in the main function can train your agents**.
 
-On the **performance marking**, we will do several experiments under the same MDP where we **run the agents for 5000 episodes** using commands that are similar with which have been provided in the **main functions**. In each experiment we will store the performance of your agents in episodes that are divisible by 500 and average this value across experiments. We will then make a plot of the agent performance and compare it with our solutions. In 5000 episodes, given good hyperparameter settings, your agents should be able to reach performance that is close to optimal.
+On the **performance marking**, we will do several experiments under the same MDP where we **run the agents for 5000 episodes** using commands that are similar to what has been provided in the **main functions**. In each experiment we will store the performance of your agents in episodes that are divisible by 500 and average this value across experiments. We will then make a plot of the agent performance and compare it with our solutions. In 5000 episodes, given good hyperparameter settings, your agents should be able to reach performance that is close to optimal.
 
 ## Additional Information
 
@@ -104,19 +104,19 @@ On the **performance marking**, we will do several experiments under the same MD
 ## Environment Details
    
 ### State Space
-The environment is modelled as a 6x5 grid. The grid with `(0,0)` coordinate is located in the top left part of the field. At each timestep, agents will be given a state representation, in form of a list, which has information on the defending players and their own location on the grid. The first item in the list is the agent's location and the rest are the location of the opponents. 
+The environment is modelled as a 6x5 grid. The grid cell with `(0,0)` coordinate is located in the top left part of the field. At each timestep, the agent will be given a state representation, in the form of a list, which has information on the defending players' location and the agent's own location on the grid. The first item in the list is the agent's location and the rest are the location of the defending players. 
 
-Also, the location of the goal is not modelled inside the grid. Therefore, agents cannot dribble into the goal and must rely on the `KICK` action to score goals. 
+The location of the goal is not modelled inside the grid. Therefore, agents cannot dribble into the goal and must rely on the `KICK` action to score goals. 
 
 ### Action Spaces
-Agents are equipped with a set of discrete actions. To move to adjacent grids, agents can use the `DRIBBLE_UP`,`DRIBBLE_DOWN`,`DRIBBLE_LEFT`, and `DRIBBLE_RIGHT` actions. Additionally, the `KICK` action enables the agents to shoot the ball into the goal. 
+Agents are equipped with a set of discrete actions. To move to adjacent grids, agents can use the `DRIBBLE_UP`,`DRIBBLE_DOWN`,`DRIBBLE_LEFT`, and `DRIBBLE_RIGHT` actions. Additionally, the `KICK` action enables the agents to shoot the ball toward the goal. 
 
 ### Reward Functions
-Agents only receive non-zero rewards at the completion of each episodes. In this case, a goal will result in a reward of **+1**. However, occupying the same grid as opponent agents will result in a penalty.
+Agents only receive non-zero rewards at the completion of each episode. In this case, a goal will result in a reward of **+1**. However, occupying the same grid as defending players will result in a penalty.
 
 ### Environment Dynamics
-Environment transition resulting from the actions are stochastic. For the dribbling related actions, there will be a small probability for agents to end up dribbling into an adjacent (but wrong) grid. There is also some possibility of agents kicks going wayward from the goal after executing the `KICK` action. This probability of kicking the ball depends on the location of the grid that the agent executes the `KICK` action from.
+Environment transitions resulting from the actions are stochastic. For the dribbling actions, there will be a small probability for agents to end up dribbling into an adjacent (but wrong) grid. There is also the possibility of agent's kicks going wayward from the goal after executing the `KICK` action. This probability of kicking the ball depends on the location in the grid that the agent executes the `KICK` action from.
 
-## Statuses
-Status are integers that denote certain terminal events in the game. It will always be 0 when the agents are in the middle of a game. Other numbers might denote different events like a goal successfully scored, ball kicked out of bounds, or episodes running out of time. Full information of the possible statuses for the HFO environment can be seen at `HFO/bin/HFO` script inside the HFO codes given in the original HFO repository.
+## Status
+Status are integers that denote certain terminal events in the game. It will always be 0 when the agents are in the middle of a game. Other numbers might denote different events like a goal successfully scored, ball kicked out of bounds, or episodes running out of time. Full information of the possible status values for the HFO environment can be seen at `HFO/bin/HFO` script inside the HFO codes given in the original HFO repository.
 
