@@ -2,7 +2,7 @@
 
 ## General Description
 
-In this task, you are required to implement an attacking agent in the HFO domain that learns using the one step Asynchronous Q-Learning  algorithm ([**Mnih et al., 2016**](https://arxiv.org/pdf/1602.01783.pdf)). Unlike variants of the Deep Q-Network algorithm, asynchronous training does not require you to use an experience replay to store the experiences encountered throughout the agents' learning process. However, it requires you to run multiple threads, each having it's own separate instance of the environment. 
+In this task, you are required to implement an attacking agent in the HFO domain that learns using the one-step Asynchronous Q-Learning  algorithm ([**Mnih et al., 2016**](https://arxiv.org/pdf/1602.01783.pdf)). Unlike variants of the Deep Q-Network algorithm, asynchronous training does not require you to use an experience replay to store the experiences encountered throughout the agents' learning process. However, it requires you to run multiple threads, each having it's own separate instance of the environment. 
 
 In general, these are the different steps that needs to be done to implement an asynchronous Q-Learning agent:
 
