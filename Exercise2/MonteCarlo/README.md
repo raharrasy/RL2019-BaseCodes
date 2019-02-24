@@ -48,7 +48,7 @@ To see how your implemented function interact with each other to train the agent
 Using similar codes as what you've seen in `__main__`, we are going to run your agent on a randomly sampled MDP and compare it's performance to our solution. For details on the experiment, refer to the **Marking** section in Exercise 2's README.
 
 ### Unit test marking
-We compare the results of updates from `learn()`. This function should return  **a tuple of two entries**. The first entry is the **complete Q-value table of all states**. The second entry is the **Q-value estimate after update of the states you've encountered in the episode ordered by their first time appearance in the episode**. We will only use the second entry for automarking.
+We compare the results of updates from `learn()`. This function should return  **a tuple of two entries**. The first entry is the **complete Q-value table of all states**. The second entry is the **Q-value estimate after update of the state-action pairs you've encountered in the episode ordered by their first time appearance in the episode**. We will only use the second entry for automarking.
 
 As an example, let's say that an agent is exposed to the following sequence of experience:
 ```
