@@ -148,7 +148,7 @@ During marking, using the same inputs, we will test the computed action values a
 Unit testing will be done by running two short episodes of interaction in the HFO environment and checking at each timestep the correctness of the outputs of your function.
 
 #### Suggested timeline
-We understand that this exercise can be quite daunting due to the many components that should be implemented. However, it can be much easier if you go through the exercise following certain steps. In general, these are the steps that we recommend you to go through.
+We understand that this exercise may seem daunting due to the many components that need to be implemented. However, it can be much easier if you go through the exercise following certain steps. In general, these are the steps that we recommend you to go through.
 
 1. Getting prepared
    - The exercise will be much easier if you understand how the HFO environment works and its python API. To achieve this, read the HFO Environment manual thoroughly and just take a look inside the example codes provided in `HFO/example`. This will probably take 3-4 hours of your time.
