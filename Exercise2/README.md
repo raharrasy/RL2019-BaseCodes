@@ -8,9 +8,9 @@ Full codes for the discretized HFO domain can be found in the `DiscreteHFO` fold
 
 ## Setup and Requirements
 
-A lot of students have noted that they ran into installation problems in DICE. Alternatively, you can also install HFO in the mlp cluster. However, if trouble persists, we encourage students to contact the demonstrators directly or visit the demonstration sessions that are going to be held in the following weeks. We do not provide any guarantee that this will work on your personal computers, but we guarantee that it will work in either DICE or the MLP clusters and will help troubleshoot any problems encountered for installing in DICE or the mlp clusters.
+A lot of students have noted that they ran into installation problems on DICE. As an alternative to DICE, you can also install HFO on the MLP cluster. However, if trouble persists, we encourage students to contact the demonstrators directly or visit the demonstration sessions that are going to be held in the following weeks. We do not provide any guarantee that this will work on your personal computers, but we guarantee that it will work in either DICE or the MLP clusters and will help troubleshoot any problems encountered for installing in DICE or the MLP clusters.
 
-To access DICE or the mlp servers from your personal computers, use the following commands for DICE:
+To access DICE or the MLP servers from your personal computers, use the following commands for DICE:
 ```
 ssh -X <UUN>@student.ssh.inf.ed.ac.uk
 ssh -X student.compute
