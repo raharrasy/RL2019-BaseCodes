@@ -143,7 +143,7 @@ targetPrediction = computeTargets(reward, nextState, discountFactor, done, targe
 targetValue = targetPrediction.item()
 ```
 
-During marking, using the same inputs, we will test the computed action values and the target values based on your implemented functions and see if they are similar to our solution. This function should be agnostic to whatever state representation or model that is used. 
+During marking, using the same inputs, we will test the computed action values and the target values based on your implemented functions and see whether they are similar to our solution. This function should be agnostic to whatever state representation or model is used. 
 
 Unit testing will be done by running two short episodes of interaction in the HFO environment and checking at each timestep the correctness of the outputs of your function.
 
