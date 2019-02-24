@@ -20,7 +20,7 @@ For this task, we will require you to store the parameters of your agent every 1
 
 ### Starting an environment
 
-The interface between agent and environment will be similar with previous tasks. You can find the necessary codes inside `Environment.py`. Since asynchronous training requires running several environments at once, each of your learning process needs to initialize a single environment at the beginning. 
+The interface between agent and environment will be similar to previous tasks. You can find the necessary codes inside `Environment.py`. Since asynchronous training requires running several environments at once (one for each thread), each of your learning threads needs to initialize a single environment at the beginning. 
 
 To start a new instance of an environment, you **must** use the following commands :
 
@@ -42,7 +42,7 @@ while True:
       episodeNumber += 1
 ```
 
-During training, ensure that the port numbers of the different environments that you've initialized are different. If you use the same port numbers, one of the environment will not get initialized and you will get an error. Additionally, you'd also like the seeds of different environment to be different. This allows you to have different state distributions across different environments which provides a more stable gradient update for the agents.
+During training, ensure that the port numbers of the different environments that you've initialized are different. If you use the same port numbers, one of the environment will not get initialized and you will get an error. Additionally, you'd also like the seeds of different environments to be different. This allows you to have different state distributions across different environments which provides a more stable gradient update for the agents.
 
 ### The HFO environment
    
@@ -86,9 +86,9 @@ You are allowed to define your own reward functions for this task. Make sure tha
 
 ### Marking details
 #### Performance marking
-The performance of the agent is going to be based on average time to goal. Under this metric, several different experiments with different starting states are executed. At each episode, we then measure the number of timesteps that passed until the agents score a goal. In episodes where agents fail to score goals, a default value of the maximum timesteps in an episode (e.g. 500 timesteps) will be used for in the averaging process, otherwise the time to goal is going to be used.
+The performance of the agent is going to be based on average time to goal. Under this metric, several different experiments with different starting states are executed. At each episode, we then measure the number of timesteps that passed until the agent scores a goal. In episodes where agents fail to score goals, a default value of the maximum timesteps in an episode (e.g. 500 timesteps) will be used for in the averaging process, otherwise the time to goal is going to be used.
 
-**We require you to store the parameters of your neural network every 1 million global timesteps and at the end of training. Then, include it in your submitted files along with your scripts** under the name `**params_<k-th storage time>**`. To this end, we have provided you a function to save your model parameters in `saveModelNetwork(model, strDirectory)` under `Worker.py`. As an example, **after 1 million global steps, store your parameters as `params_1`, `params_2` after 2 million global steps, etc**. At the end of training, save your parameters as **`params_last`**.
+**We require you to store the parameters of your neural network every 1 million global timesteps and at the end of training. Then, include it in your submitted files along with your scripts** under the name `**params_<k-th storage time>**`. To this end, we have provided you with a function to save your model parameters in `saveModelNetwork(model, strDirectory)` under `Worker.py`. As an example, **after 1 million global steps, store your parameters as `params_1`, `params_2` after 2 million global steps, etc**. At the end of training, save your parameters as **`params_last`**.
 
 To save your model parameters, we have provided the saveModelNetwork() function inside `Worker.py`. You only need to specify the neural network that you are about to store and the name of the file for storage.
 
@@ -148,12 +148,12 @@ During marking, using the same inputs, we will test the computed action values a
 Unit testing will be done by running two short episodes of interaction in the HFO environment and checking at each timestep the correctness of the outputs of your function.
 
 #### Suggested timeline
-We understand that this exercise can be quite overwhelming due to the many components that should be implemented. However, it can be much easier if you go through the exercise following certain steps. In general, these are the steps that we recommend you to go through.
+We understand that this exercise can be quite daunting due to the many components that should be implemented. However, it can be much easier if you go through the exercise following certain steps. In general, these are the steps that we recommend you to go through.
 
 1. Getting prepared
-   - The exercise will be much easier if you understand how the HFO environment works and it's python API. To achieve this, read the HFO Environment manual thoroughly and just take a look inside the example codes provided in `HFO/example`. This will probably take 3-4 hours of your time.
+   - The exercise will be much easier if you understand how the HFO environment works and its python API. To achieve this, read the HFO Environment manual thoroughly and just take a look inside the example codes provided in `HFO/example`. This will probably take 3-4 hours of your time.
 
-   - Familiarize yourself with pytorch. You don't need to be an expert in neural networks to get into this assignment (In fact, simple linear models can work, too!). But you at least need to be familiar with how to create neural networks in pytorch and how to optimize them based on certain objective functions. To get to this point, read the [tutorials](https://pytorch.org/tutorials) in pytorch's official website. This will probably take 4-5 hours of your time.
+   - Familiarize yourself with pytorch. You don't need to be an expert in neural networks to get into this assignment. But you at least need to be familiar with how to create neural networks in pytorch and how to optimize them based on certain objective functions. To get to this point, read the [tutorials](https://pytorch.org/tutorials) in pytorch's official website. This will probably take 4-5 hours of your time.
 
    - Understand the asynchronous deep learning training framework. There's an excellent example for asynchronously training supervised learning models using pytorch provided [here](https://github.com/pytorch/examples/tree/master/mnist_hogwild). Use the codes provided here as the foundation for Asynchronous Q-Learning. Reading through this will probably require 2-3 hours of your time.
 
@@ -162,7 +162,8 @@ We understand that this exercise can be quite overwhelming due to the many compo
    - I strongly recommend just using a positive reward for goals and the standard state information provided by HFO. 
    - If your implementations are correct, even a simple linear model will show an improvement in performance.
    - This will probably take 25-30 hours of your time.
-   - Also, use smaller learning rates. E.g. , try something like 1e-7 to 1e-4
+   - Also, use smaller learning rates. For example, try something like 1e-7 to 1e-4.
 
 3. Now, improve your results by running experiments with different parameters, rewards, and state representations.
+
 4. Strategically devise experiment schemes to better manage your time.
