@@ -1,8 +1,8 @@
 # Exercise 2 - Q-Learning, SARSA, and first-visit MC control with soft policies
 
-In this exercise, you are required to implement an attacking agent in the discretized Half Field Offense (HFO) domain. These agents will be controlled using the Q-Learning (**Section 6.5 of the book**), SARSA (**Section 6.4 of the book**), and first visit Monte Carlo control for soft policies (**Algorithm in page 101 of the book**). 
+In this exercise, your task is to implement an attacking agent in the discretized Half Field Offense (HFO) domain. Your agent will be controlled using Q-Learning (**Section 6.5 of the book**), SARSA (**Section 6.4 of the book**), and first visit Monte Carlo control with soft policies (**Algorithm in page 101 of the book**). 
 
-Just like in Exercise 1, the environment is a gridworld where each position is associated with a probability of scoring goals. Additionally, defending NPCs are positioned in parts of the environment and acts as obstacles. Episodes always end when agents execute the **KICK** action. If an agent manages to score a goal in an episode, the agent receives a reward of **+1**. Agents will also be punished with a penalty if it moves into a grid occupied by a defensive NPC. The position of defense NPCs will not change during the course of each episode. 
+Just like in Exercise 1, the environment is a gridworld where each position is associated with a probability of scoring a goal. Additionally, defending players are positioned in parts of the environment and acts as obstacles. Episodes always end when agents execute the **KICK** action. If an agent manages to score a goal in an episode, the agent receives a reward of **+1**. The agent will be punished with a penalty if it moves into a grid location occupied by a defending player. The position of defending players will not change during the course of each episode. 
 
 Full codes for the discretized HFO domain can be found in the `DiscreteHFO` folder. In particular, `DiscreteHFO/HFOAttackingPlayer.py` contains the implementation of the interface between the HFO domain and your agent controller. 
 
@@ -85,9 +85,9 @@ On the **performance marking**, we will do several experiments under the same MD
 1. `DiscreteHFO/HFOAttackingPlayer.py`
    - File to establish connections with HFO and preprocess state representations gathered from the HFO domain.
 2. `DiscreteHFO/HFODefendingPlayer.py`
-   - File to control defending NPCs inside the HFO environment. 
+   - File to control defending player inside the HFO environment. 
 3. `DiscreteHFO/HFOGoalkeepingPlayer.py`
-   - File to control Goalkeeping NPCs inside the HFO environment. HFO environment cannot run without a goalkeeper. 
+   - File to control Goalkeeper inside the HFO environment. HFO environment cannot run without a goalkeeper. 
 4. `DiscreteHFO/DiscretizedDefendingPlayer.py`
    - File to initialize the defending player.
 5. `DiscreteHFO/Goalkeeper.py`
@@ -104,7 +104,7 @@ On the **performance marking**, we will do several experiments under the same MD
 ## Environment Details
    
 ### State Space
-The environment is modelled as a 6x5 grid. The grid with `(0,0)` coordinate is located in the top left part of the field. At each timestep, agents will be given a state representation, in form of a list, which has information on the defensive NPCs and their own location on the grid. The first item in the list is the agent's location and the rest are the location of the opponents. 
+The environment is modelled as a 6x5 grid. The grid with `(0,0)` coordinate is located in the top left part of the field. At each timestep, agents will be given a state representation, in form of a list, which has information on the defending players and their own location on the grid. The first item in the list is the agent's location and the rest are the location of the opponents. 
 
 Also, the location of the goal is not modelled inside the grid. Therefore, agents cannot dribble into the goal and must rely on the `KICK` action to score goals. 
 
