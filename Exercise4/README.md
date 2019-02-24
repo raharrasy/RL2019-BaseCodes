@@ -1,10 +1,10 @@
 # Exercise 4 - Independent Q-Learning, Joint Action Learning, and WoLF-PHC for discrete multi-agent RL
 
-In this task, you will control a team of two attacking agents in a discretized soccer domain. We move away from full HFO for this task and just use a simple discretized domain. The attacking agents will be controlled using Independent Q-Learning (**each agent independently using Q-Learning without sharing information with other agents**), Joint Action Learning with opponent modelling (see the readme in the "JointActionLearner" folder for details), and WoLF-PHC as described in [**Bowling and Veloso, 2001**](http://www.cs.cmu.edu/~mmv/papers/01ijcai-mike.pdf). 
+In this task, you will control a team of two attacking agents in a discretized soccer domain. We move away from full HFO for this task and just use a simple discretized domain. The attacking agents will be controlled using Independent Q-Learning (each agent independently using Q-Learning without sharing information with other agents), Joint Action Learning with opponent modelling (see the readme in the "JointActionLearner" folder for details), and WoLF-PHC as described in [**Bowling and Veloso, 2001**](http://www.cs.cmu.edu/~mmv/papers/01ijcai-mike.pdf). 
 
-Just like in Exercise 2, each position in the gridworld is associated with a probability of scoring a goal. Furthermore, defending players are positioned in parts of the environment and act as obstacles. A ball-carrying agent will be punished with a penalty if it moves into a location occupied by a defensive player. The position of defensive players will not change during the course of each episode.
+Just like in Exercise 2, each position in the gridworld is associated with a probability of scoring a goal. Furthermore, a defending player is positioned in the environment and acts as an obstacle. (The position of the defending player will not change during the course of the episode.) A ball-carrying agent will be punished with a penalty if it moves into a location occupied by a defending player.
 
-However, unlike Exercise 2, the team of agents will only receive a reward of **+1** if one of the members of the team covers the opponent (by moving into the same grid location as the opponent) while the other member kicks the ball into the goal. As a result, an optimal policy for this domain should be one where one agent covers the opponent while the other moves to an advantageous location and scores a goal. This requires some coordination between both of the trained agents.
+However, unlike Exercise 2, the team of attacking agents will only receive a reward of **+1** if one of the members of the team covers the defending player (by moving into the same grid location as the defender) while the other member kicks the ball into the goal. As a result, an optimal policy for this domain should be one where one agent covers the opponent while the other moves to an advantageous location and scores a goal. This requires some coordination between both of the trained agents.
 
 Full codes for the discretized multi-agent RL domain can be found in the `DiscreteMARLUtils` folder. In particular, `DiscreteMARLUtils/Environment.py` contains the implementation of the interface between the HFO domain and your agent controller. You must then implement algorithms that choose actions given a certain state, and pass it through the provided `act` method. The environment will respond by providing your agents with the next state, reward, and episode completion information. 
 
@@ -20,7 +20,7 @@ Full codes for the discretized multi-agent RL domain can be found in the `Discre
    - Specifies the necessary functions that all agents must have.
 
 ## State Space
-The environment is modelled as a 5x5 grid. The grid cell with `(0,0)` coordinate is located in the top left part of the field. At each timestep, agents will be given a state representation, in the form of a list, which has information on their teammates', defensive players' and their own location on the grid. 
+The environment is modelled as a 5x5 grid. The grid cell with `(0,0)` coordinate is located in the top left part of the field. At each timestep, agents will be given a state representation, in the form of a list, which has information on their teammates', defending players' and their own location on the grid. 
 
 Also, the location of the goal is not modelled inside the grid. Therefore, agents cannot dribble into the goal and must rely on the `KICK` action to score goals. 
 
