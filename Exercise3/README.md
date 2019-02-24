@@ -148,16 +148,16 @@ During marking, using the same inputs, we will test the computed action values a
 Unit testing will be done by running two short episodes of interaction in the HFO environment and checking at each timestep the correctness of the outputs of your function.
 
 #### Suggested timeline
-We understand that this exercise may seem daunting due to the many components that need to be implemented. However, it can be much easier if you go through the exercise following certain steps. In general, these are the steps that we recommend you to go through.
+We understand that this exercise may seem daunting due to the many components that need to be implemented. However, it can be much easier if you go through the exercise following certain steps. In general, these are the steps that we recommend you to go through:
 
-1. Getting prepared
+1. Getting prepared:
    - The exercise will be much easier if you understand how the HFO environment works and its python API. To achieve this, read the HFO Environment manual thoroughly and just take a look inside the example codes provided in `HFO/example`. This will probably take 3-4 hours of your time.
 
    - Familiarize yourself with pytorch. You don't need to be an expert in neural networks to get into this assignment. But you at least need to be familiar with how to create neural networks in pytorch and how to optimize them based on certain objective functions. To get to this point, read the [tutorials](https://pytorch.org/tutorials) in pytorch's official website. This will probably take 4-5 hours of your time.
 
    - Understand the asynchronous deep learning training framework. There's an excellent example for asynchronously training supervised learning models using pytorch provided [here](https://github.com/pytorch/examples/tree/master/mnist_hogwild). Use the codes provided here as the foundation for Asynchronous Q-Learning. Reading through this will probably require 2-3 hours of your time.
 
-2. Implementing a minimum working implementation
+2. Implementing a minimum working implementation:
    - Don't get too much into details on state representations, rewards, and hyperparameter tuning at this point.
    - I strongly recommend just using a positive reward for goals and the standard state information provided by HFO. 
    - If your implementations are correct, even a simple linear model will show an improvement in performance.
