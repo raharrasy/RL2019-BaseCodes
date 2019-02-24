@@ -14,7 +14,7 @@ In general, these are the different steps that needs to be done to implement an 
 6. After each update to the global network, copy the parameters of the global network into the local network that provided the update.
 
 
-For this task, we will require you to store the parameters of your agents every 1 million global timesteps. We would then test the performance of your agents based on these submitted parameters. The performance of the agent will be measured based on average time to goal in each episode. In the event where your agent unsuccessfully scores a goal in an episode, we define the time to goal at that episode as the maximum allowed number of timesteps for that episode, which is 500 timesteps.
+For this task, we will require you to store the parameters of your agent every 1 million global timesteps. We will test the performance of your trained agent based on these submitted parameters. The performance of the agent will be measured based on average time to goal in each episode. In the event where your agent unsuccessfully scores a goal in an episode, we define the time to goal at that episode as the maximum allowed number of timesteps for that episode, which is 500 timesteps.
 
 ## Getting Started
 
