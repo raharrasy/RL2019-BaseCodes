@@ -16,7 +16,7 @@ Your task is to implement the Value Iteration algorithm (page 83 of the RL textb
 ## Specifications
 
 ## 1. Bellman Update Parameters
-You have already been provided an explanation of the value iteration algorithm and its parameters in lectures. In this case, the only parameters are its discount rate. Fill in the base codes to enable the creation of an object of the `BellmanDPSolver` class by using `BellmanDPSolver(discountRate)`.
+You have already been provided with an explanation of the value iteration algorithm and its parameters in lectures. In this case, the only parameters are its discount rate. Fill in the base codes to enable the creation of an object of the `BellmanDPSolver` class by using `BellmanDPSolver(discountRate)`.
 
 ## 2. Value Function and Policy Initialization
 The result of the initial iterations of the value iteration algorithm depends on the initial values of states and the policies. To allow standardized marking, set the initial values of all states to zero and the policy to be a uniform distribution. Implement these initializations in the `initVs()` function.
