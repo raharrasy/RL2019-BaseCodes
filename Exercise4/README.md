@@ -4,7 +4,7 @@ In this task, you will control a team of two attacking agents in a discretized s
 
 Just like in Exercise 2, each position in the gridworld is associated with a probability of scoring a goal. Furthermore, a defending player is positioned in the environment and acts as an obstacle. (The position of the defending player will not change during the course of the episode.) A ball-carrying agent will be punished with a penalty if it moves into a location occupied by a defending player.
 
-However, unlike Exercise 2, the team of attacking agents will only receive a reward of **+1** if one of the members of the team covers the defending player (by moving into the same grid location as the defender) while the other member kicks the ball into the goal. As a result, an optimal policy for this domain should be one where one agent covers the opponent while the other moves to an advantageous location and scores a goal. This requires some coordination between both of the trained agents.
+However, unlike Exercise 2, the team of attacking agents will only receive a reward of **+1** if one of the members of the team covers the defending player (by moving into the same grid location as the defender) while the other member kicks the ball into the goal. As a result, an optimal policy for this domain should be one where one agent covers the defending player while the other moves to an advantageous location and scores a goal. This requires some coordination between both of the trained agents.
 
 Full codes for the discretized multi-agent RL domain can be found in the `DiscreteMARLUtils` folder. In particular, `DiscreteMARLUtils/Environment.py` contains the implementation of the interface between the HFO domain and your agent controller. You must then implement algorithms that choose actions given a certain state, and pass it through the provided `act` method. The environment will respond by providing your agents with the next state, reward, and episode completion information. 
 
@@ -28,7 +28,7 @@ The location of the goal is not modelled inside the grid. Therefore, agents cann
 Agents are equipped with a set of discrete actions. To move to adjacent grids, agents can use the `DRIBBLE_UP`,`DRIBBLE_DOWN`,`DRIBBLE_LEFT`, and `DRIBBLE_RIGHT` actions. Additionally, the `KICK` action enables the agents to shoot the ball towards the goal. 
 
 ## Reward Functions
-Agents only receive non-zero rewards at the completion of each episode. In this case, a goal while an agent of the team successfully covers the opponent will result in a reward of **+1**. However, if a ball-carrying agent occupies the same grid as the defending player, it will result in a penalty to both controlled agents.
+Agents only receive non-zero rewards at the completion of each episode. In this case, a goal while an agent of the team successfully covers the defending player will result in a reward of **+1**. However, if a ball-carrying agent occupies the same grid as the defending player, it will result in a penalty to both controlled agents.
 
 ## Environment Dynamics
 Environment transitions resulting from the actions are stochastic. For the dribbling actions, there will be a small probability for agents to end up dribbling into an adjacent (but wrong) grid cell. There is also some possibility of agents' kicks going wayward from the goal after executing the `KICK` action. This probability of kicking the ball depends on the location in the grid that the agent executes the `KICK` action from.
