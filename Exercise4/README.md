@@ -28,10 +28,10 @@ The location of the goal is not modelled inside the grid. Therefore, agents cann
 Agents are equipped with a set of discrete actions. To move to adjacent grids, agents can use the `DRIBBLE_UP`,`DRIBBLE_DOWN`,`DRIBBLE_LEFT`, and `DRIBBLE_RIGHT` actions. Additionally, the `KICK` action enables the agents to shoot the ball towards the goal. 
 
 ## Reward Functions
-Agents only receive non-zero rewards at the completion of each episode. In this case, a goal while an agent of the team successfully covers the opponent will result in a reward of **+1**. However, if a ball-carrying agent occupies the same grid as opponent agents, it will result in a penalty to both controlled agents.
+Agents only receive non-zero rewards at the completion of each episode. In this case, a goal while an agent of the team successfully covers the opponent will result in a reward of **+1**. However, if a ball-carrying agent occupies the same grid as the defending player, it will result in a penalty to both controlled agents.
 
 ## Environment Dynamics
-Environment transitions resulting from the actions are stochastic. For the dribbling related actions, there will be a small probability for agents to end up dribbling into an adjacent (but wrong) grid. There is also some possibility of agents' kicks going wayward from the goal after executing the `KICK` action. This probability of kicking the ball depends on the location of the grid that the agent executes the `KICK` action from.
+Environment transitions resulting from the actions are stochastic. For the dribbling actions, there will be a small probability for agents to end up dribbling into an adjacent (but wrong) grid cell. There is also some possibility of agents' kicks going wayward from the goal after executing the `KICK` action. This probability of kicking the ball depends on the location in the grid that the agent executes the `KICK` action from.
 
 ## Implementing Your Own Agents
 You are required to implement Independent Q-Learning, Joint Action Learning, and WoLF-PHC. To this end, we've provided you with code snippets which indicate the functions that you should implement. To find the skeleton codes for each algorithm, open the `IndependentQLearning`, `JointActionLearner`, and `WoLFPHCAgent` folders respectively. Further instructions for each task can be found in the markdown files inside the aforementioned folders.
