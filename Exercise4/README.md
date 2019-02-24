@@ -25,7 +25,7 @@ The environment is modelled as a 5x5 grid. The grid cell with `(0,0)` coordinate
 The location of the goal is not modelled inside the grid. Therefore, agents cannot dribble into the goal and must rely on the `KICK` action to score goals. 
 
 ## Action Spaces
-Agents are equipped with a set of discrete actions. To move to adjacent grids, agents can use the `DRIBBLE_UP`,`DRIBBLE_DOWN`,`DRIBBLE_LEFT`, and `DRIBBLE_RIGHT` actions. Additionally, the `KICK` action enables the agents to shoot the ball into the goal. 
+Agents are equipped with a set of discrete actions. To move to adjacent grids, agents can use the `DRIBBLE_UP`,`DRIBBLE_DOWN`,`DRIBBLE_LEFT`, and `DRIBBLE_RIGHT` actions. Additionally, the `KICK` action enables the agents to shoot the ball towards the goal. 
 
 ## Reward Functions
 Agents only receive non-zero rewards at the completion of each episode. In this case, a goal while an agent of the team successfully covers the opponent will result in a reward of **+1**. However, if a ball-carrying agent occupies the same grid as opponent agents, it will result in a penalty to both controlled agents.
