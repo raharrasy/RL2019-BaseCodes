@@ -11,7 +11,7 @@ Your task is to implement the Value Iteration algorithm (page 83 of the RL textb
    - `BellmanUpdate()`
      - Implement the second line in the inner-most loop of the algorithm outlined in page 83 of the RL textbook.
      - Also compute the resulting greedy policy resulting from the update.
-     - return a tuple of (values, policy) which represent the value of every state and greedy policy which results after an interation of the update.
+     - Return a tuple of (values, policy) which represent the value of every state and greedy policy which results after an interation of the update.
    
 ## Specifications
 
