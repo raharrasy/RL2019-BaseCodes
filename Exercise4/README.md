@@ -1,4 +1,4 @@
-# Exercise 4 - Independent Q-Learning, Joint Action Learning, and WoLF-PHC for discrete multiagent RL.
+# Exercise 4 - Independent Q-Learning, Joint Action Learning, and WoLF-PHC for discrete multi-agent RL.
 
 In this task, you will control a team of two attacking agents in a discretized soccer domain. We move away from full HFO for this task and just use a simple discretized domain. The attacking agents will be controlled using Independent Q-Learning (**each agent independently using Q-Learning without sharing information with other agents**), Joint Action Learning with opponent modelling (see the readme in the "JointActionLearner" folder for details), and WoLF-PHC as described in [**Bowling and Veloso, 2001**](http://www.cs.cmu.edu/~mmv/papers/01ijcai-mike.pdf). 
 
