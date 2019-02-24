@@ -20,9 +20,9 @@ Full codes for the discretized multi-agent RL domain can be found in the `Discre
    - Specifies the necessary functions that all agents must have.
 
 ## State Space
-The environment is modelled as a 5x5 grid. The grid cell with `(0,0)` coordinate is located in the top left part of the field. At each timestep, agents will be given a state representation, in the form of a list, which has information on their teammates', defending players' and their own location on the grid. 
+The environment is modelled as a 5x5 grid. The grid cell with `(0,0)` coordinate is located in the top left part of the field. At each timestep, agents will be given a state representation, in the form of a list, which has information on their teammate's location, defending player's location, and their own location on the grid. 
 
-Also, the location of the goal is not modelled inside the grid. Therefore, agents cannot dribble into the goal and must rely on the `KICK` action to score goals. 
+The location of the goal is not modelled inside the grid. Therefore, agents cannot dribble into the goal and must rely on the `KICK` action to score goals. 
 
 ## Action Spaces
 Agents are equipped with a set of discrete actions. To move to adjacent grids, agents can use the `DRIBBLE_UP`,`DRIBBLE_DOWN`,`DRIBBLE_LEFT`, and `DRIBBLE_RIGHT` actions. Additionally, the `KICK` action enables the agents to shoot the ball into the goal. 
