@@ -81,6 +81,8 @@ You are allowed to define your own reward functions for this task. Make sure tha
 2. `Goalkeeper.py` (**Should not be modified**)
    - An NPC Goalkeeper implementation for the environment. This NPC just runs around the goalposts throughout the episodes.
 
+### Training your agents
+Train your agents for up to 32 million timesteps. In this case, divide this equally between the number of threads that you are using. As an example, if you use 8 threads, then each thread will be responsible for 4 million timesteps. In this case, this means that you need to run the agents for 8000 episodes since each episode spans up to 500 timesteps.
 
 ### Marking details
 #### Performance marking
