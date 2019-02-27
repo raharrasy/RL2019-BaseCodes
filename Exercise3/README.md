@@ -7,14 +7,12 @@ In this task, you are required to implement an attacking agent in the HFO domain
 In general, these are the different steps that needs to be done to implement an asynchronous Q-Learning agent:
 
 1. Create a global value network which will later be periodically copied to the separate threads. 
-2. Create separate threads, each equipped with a copy of the environment and a local value network. 
-3. Initialize the value of the local value networks using the same values as your global value network. 
-4. In each thread, run the Q-Learning algorithm based on your local value functions and calculate the updates using the gathered experiences.
-5. Periodically push the gradients from the local networks to the global network and update the global network parameters. 
-6. After each update to the global network, copy the parameters of the global network into the local network that provided the update.
+2. Create separate threads, each equipped with a copy of the environment. 
+3. In each thread, run the Q-Learning algorithm based on the value functions and calculate the updates using the gathered experiences.
+5. Periodically push the gradients from the threads to the global network and update the global network parameters.
 
 
-For this task, we will require you to store the parameters of your agent every 1 million global timesteps. We will test the performance of your trained agent based on these submitted parameters. The performance of the agent will be measured based on average time to goal in each episode. In the event where your agent unsuccessfully scores a goal in an episode, we define the time to goal at that episode as the maximum allowed number of timesteps for that episode, which is 500 timesteps.
+For this task, we will require you to store the parameters of your agent every **1 million global timesteps and the final parameters you get**. We will test the performance of your trained agent based on these submitted parameters. The performance of the agent will be measured based on average time to goal in each episode. In the event where your agent unsuccessfully scores a goal in an episode, we define the time to goal at that episode as the maximum allowed number of timesteps for that episode, which is 500 timesteps.
 
 ## Getting Started
 
