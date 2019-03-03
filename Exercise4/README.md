@@ -4,7 +4,7 @@ In this task, you will control a team of two attacking agents in a discretized s
 
 Just like in Exercise 2, each position in the gridworld is associated with a probability of scoring a goal. Furthermore, a defending player is positioned in the environment and acts as an obstacle. (The position of the defending player will not change during the course of the episode.) A ball-carrying agent will be punished with a penalty if it moves into a location occupied by a defending player.
 
-However, unlike Exercise 2, the team of attacking agents will only receive a reward of **+1** if one of the members of the team covers the defending player (by moving into the same grid location as the defender) while the other member kicks the ball into the goal. As a result, an optimal policy for this domain should be one where one agent covers the defending player while the other moves to an advantageous location and scores a goal. This requires some coordination between both of the trained agents.
+However, unlike Exercise 2, the team of attacking agents will only receive a reward of **+1** if one of the members of the team covers the defending player (by moving into the same grid location as the defender) while one of the team member kicks the ball into the goal. As a result, an optimal policy for this domain should be one where one agent covers the defending player while the other moves to an advantageous location and scores a goal. This requires some coordination between both of the trained agents.
 
 Full codes for the discretized multi-agent RL domain can be found in the `DiscreteMARLUtils` folder. In particular, `DiscreteMARLUtils/Environment.py` contains the implementation of the interface between the HFO domain and your agent controller. You must then implement algorithms that choose actions given a certain state, and pass it through the provided `act` method. The environment will respond by providing your agents with the next state, reward, and episode completion information. 
 
@@ -42,4 +42,22 @@ The `DiscreteMARLUtils/Environment.py` depends on the `pygame` package to visual
 conda install -c cogsci pygame
 ```
 
-Nevertheless, the visualization slows down the execution of the code. Hence, it is not recommended to use the visualizations when training the agent.
+or
+
+```
+pip3 install pygame --user
+```
+
+Nevertheless, the visualization slows down the execution of the code. Hence, it is not recommended to use the visualizations when training the agent. It is **recommended for you to just print the states, actions, and rewards experienced by agents for debugging purposes**. 
+
+Additionally, we assume that you are using python 3 for this exercise. Not using python 3 might cause certain errors when using the following commands to run the code.
+
+## Running the codes
+To run the codes, move the necessary python script into the `Exercise4` using
+```
+# Navigate to the Exercise 4 folder 
+cd Exercise4
+cp <DesiredFolder>/<Desired py script> .
+python <Desired py script>
+```
+
