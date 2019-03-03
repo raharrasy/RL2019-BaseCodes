@@ -38,7 +38,6 @@ class IndependentQLearningAgent(Agent):
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--id', type=int, default=0)
 	parser.add_argument('--numOpponents', type=int, default=1)
 	parser.add_argument('--numAgents', type=int, default=2)
 	parser.add_argument('--numEpisodes', type=int, default=50000)

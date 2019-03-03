@@ -7,11 +7,11 @@ from DiscreteMARLUtils.Environment import DiscreteMARLEnvironment
 from DiscreteMARLUtils.Agent import Agent
 from copy import deepcopy
 import itertools
+import argparse
 		
 class JointQLearningAgent(Agent):
 	def __init__(self, learningRate, discountFactor, epsilon, numTeammates, initVals=0.0):
-		super(JointQLearningAgent, self).__init__()
-		
+		super(JointQLearningAgent, self).__init__()	
 
 	def setExperience(self, state, action, oppoActions, reward, status, nextState):
 		raise NotImplementedError
@@ -39,10 +39,17 @@ class JointQLearningAgent(Agent):
 
 if __name__ == '__main__':
 
-	MARLEnv = DiscreteMARLEnvironment(numOpponents = args.numOpponents, numAgents = args.numAgents, seed=randomSeed)
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--numOpponents', type=int, default=1)
+	parser.add_argument('--numAgents', type=int, default=2)
+	parser.add_argument('--numEpisodes', type=int, default=50000)
+
+	args=parser.parse_args()
+
+	MARLEnv = DiscreteMARLEnvironment(numOpponents = args.numOpponents, numAgents = args.numAgents)
 	agents = []
-	numAgents = 2
-	numEpisodes = 4000
+	numAgents = args.numAgents
+	numEpisodes = args.numEpisodes
 	for i in range(numAgents):
 		agent = JointQLearningAgent(learningRate = 0.1, discountFactor = 0.9, epsilon = 1.0, numTeammates=args.numAgents-1)
 		agents.append(agent)
@@ -74,7 +81,7 @@ if __name__ == '__main__':
 				oppoActions = actions.copy()
 				del oppoActions[agentIdx]
 				agents[agentIdx].setExperience(agents[agentIdx].toStateRepresentation(stateCopies[agentIdx]), actions[agentIdx], oppoActions, 
-					reward[agentIdx], status[agentIdx], nextObservation[agentIdx])
+					reward[agentIdx], status[agentIdx], agent.toStateRepresentation(nextObservation[agentIdx]))
 				agents[agentIdx].learn()
 				
 			observation = nextObservation
