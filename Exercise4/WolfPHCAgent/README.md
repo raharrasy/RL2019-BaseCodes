@@ -4,7 +4,7 @@ In this task, you are required to implement the WoLF-PHC algorithm ([**Bowling a
 
 ## Specifications
 ### Automarking requirements
-To ensure that your codes can be used by the marking script, ensure that all the necessary functions have been implemented. To check whether these implementations are correct, you **must** use the code snippet given in `__main__` to test your implementation. This code snippet provides an outline of how your implemented functions will interact to train a team of agents using WoLF-PHC. If you just modify the number of episodes and the hyperparameters for training, you can use this code to train a team of Joint Action Learning agents.
+To ensure that your codes can be used by the marking script, ensure that all the necessary functions have been implemented. To check whether these implementations are correct, you **must** use the code snippet given in `__main__` to test your implementation. This code snippet provides an outline of how your implemented functions will interact to train a team of agents using WoLF-PHC. If you just modify the number of episodes and the hyperparameters for training, you can use this code to train a team of WoLF-PHC agents.
 
 Additionally, **ensure** that the initial Q-Values of all state-action pairs are initialized to **zero** prior to training. Although you can technically use any initialization value for Q-Learning, we require this as a means for unit testing your implementations.
 
