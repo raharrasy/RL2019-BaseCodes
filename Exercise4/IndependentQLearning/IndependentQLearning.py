@@ -50,7 +50,7 @@ if __name__ == '__main__':
 		agent = IndependentQLearningAgent(learningRate = 0.1, discountFactor = 0.9, epsilon = 1.0)
 		agents.append(agent)
 
-	numEpisodes = 50000
+	numEpisodes = args.numEpisodes
 	numTakenActions = 0
 	for episode in range(numEpisodes):	
 		status = ["IN_GAME","IN_GAME","IN_GAME"]
