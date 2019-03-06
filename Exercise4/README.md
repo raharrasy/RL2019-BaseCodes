@@ -30,6 +30,8 @@ Agents are equipped with a set of discrete actions. To move to adjacent grids, a
 
 ![Visualization of MOVE Actions](images/MoveActions.png?raw=true)
 
+Initially, agents will not be initialized in the same grid as the ball. However, if an agent managed to arrive at the same grid as the ball, the ball will have the same position as that agent from that point onwards. This is as if the agent now dribbles the ball.
+
 ## Reward Functions
 Agents only receive non-zero rewards at the completion of each episode. In this case, producing a goal while an agent of the team successfully covers the defending player will result in a reward of **+1**. However, if a ball-carrying agent occupies the same grid as the defending player, it will result in a penalty to both controlled agents.
 

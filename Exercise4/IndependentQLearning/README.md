@@ -9,7 +9,31 @@ To see how your implemented functions interact with each other to train the agen
 
 ## Marking details
 ### Performance marking
-Using similar codes as what you've seen in `__main__`, we are going to run your agent on a randomly sampled environment and compare its performance to our solution. Performance is measured by running an experiment using your implementation. We then divide the sequence of episodes into groups of consecutive episodes and average the reward of the agent on these groups.
+Using similar codes as what you've seen in `__main__`, we are going to run your agent on a randomly sampled environment and compare its performance to our solution. Performance is then measured by running an experiment of 50000 episodes using your implementation. We then divide the sequence of episodes into groups of consecutive 1000 episodes and average the reward of the agent on these groups for evaluation. 
 
 ### Unit test marking
 We compare the results of updates from `learn()`. Just like in Q-Learning, this function should return the difference between the value of the updated state-action pair after and before the update (Q(s_t,a_t)(t+1) - Q(s_t,a_t)(t)).
+
+As an example, assume that both agents in the environment observed the following experiences,
+
+```
+Timestep, State, Agent 1 Action, Agent 2 Action, Agent 1 Reward, Agent 2 Reward, Next State
+1, [[[1,1],[1,3]], [1,3] ,[2,3]], MOVE_UP, MOVE_RIGHT, -0.4, -0.4, [[[1,0],[2,3]], [2,3] ,[2,3]]
+2, [[[1,0],[2,3]], [2,3] ,[2,3]], MOVE_DOWN, MOVE_LEFT, 0.0, 0.0, [[[1,1],[1,3]], [1,3] ,[2,3]]
+3. [[[1,1],[1,3]], [1,3] ,[2,3]], NO_OP, KICK, 0.0, 0.0, ["GOAL", "GOAL"]
+```
+
+Then, the outputs of learn should be something like :
+```
+Timestep, Agent 1 learn() output, Agent 2 learn() output
+1, Change in Q<[[[1,1],[1,3]], [1,3] ,[2,3]], MOVE_UP>, Change in Q<[[[1,1],[1,3]], [1,3] ,[2,3]], MOVE_RIGHT>
+2, Change in Q<[[[1,0],[2,3]], [2,3] ,[2,3]], MOVE_DOWN>, Change in Q<[[[1,0],[2,3]], [2,3] ,[2,3]], MOVE_LEFT>
+3, Change in Q<[[[1,1],[1,3]], [1,3] ,[2,3]], NO_OP>, Change in Q<[[[1,1],[1,3]], [1,3] ,[2,3]], KICK>
+```
+which in this case, should be :
+```
+Timestep, Agent 1 learn() output, Agent 2 learn() output
+1, -0.04, -0.04 
+2, 0.0, 0.0
+3, 0.0, 0.0
+```
