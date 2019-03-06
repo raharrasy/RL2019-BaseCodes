@@ -145,7 +145,7 @@ targetValue = targetPrediction.item()
 
 During marking, using the same inputs, we will test the computed action values and the target values based on your implemented functions and see whether they are similar to our solution. This function should be agnostic to whatever state representation or model is used. 
 
-Unit testing will be done by running two short episodes of interaction in the HFO environment and checking at each timestep the correctness of the outputs of your function.
+Unit testing will be done by running two short episodes of interaction in the HFO environment and checking at each timestep the correctness of the outputs of your function. **The architecture used for testing will be similar to that which is used inside the DQN Algorithm.**
 
 #### Suggested timeline
 We understand that this exercise may seem daunting due to the many components that need to be implemented. However, it can be much easier if you go through the exercise following certain steps. In general, these are the steps that we recommend you to go through:
