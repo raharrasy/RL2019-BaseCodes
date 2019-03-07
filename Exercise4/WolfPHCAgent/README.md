@@ -53,7 +53,7 @@ Using similar codes as what you've seen in `__main__`, we are going to run your 
 #### Distributing the probabilities
 One thing that you need to be careful about in Wolf-PHC is  how you update your policy. **In this case, when subtracting deltas from some of the actions and redistributing it to others, follow this rule:**
 
-- Following point (d) in Table 2 in the paper, take some share of probabilities from actions that **does not maximize the Q-Values**. However, take them proportionately to the current probabilities of these actions. **As an example**, let's say your delta is 0.1 and there are two actions that does not maximise the Q-Values, **each with current probability 0.1 and 0.2 respectively**. Then, you need to subtract **0.1/3.0 and 0.2/3.0** respectively.
+- Following point (d) in Table 2 in the paper, take some share of probabilities from actions that **does not maximize the Q-Values**. However, take them proportionately to the current probabilities of these actions. **As an example**, let's say your **delta is 0.1** and there are two actions that does not maximise the Q-Values, **each with current probability 0.1 and 0.2 respectively**. Then, you need to subtract **0.1/3.0 and 0.2/3.0** from each action respectively.
 
 - You need to assign the subtracted probabilities from actions that do not maximise the Q-Values into actions that maximise Q(s,a). In this case, split the sibtracted probability equally among the actions that maximise Q(s,a). Let's say you have 2 actions that maximise **Q(s,a)** and the total probability subtracted is 0.1. Then each of these actions should receive an increase of 0.05 in their probability.
 
