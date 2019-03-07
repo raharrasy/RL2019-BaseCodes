@@ -47,7 +47,48 @@ To see how your implemented function interact with each other to train the agent
 
 ## Marking details
 ### Performance marking
-Using similar codes as what you've seen in `__main__`, we are going to run your agent on a randomly sampled environment and compare it's performance to our solution. Performance is measured by running an experiment using your implementation. We then divide the sequence of episodes into groups of consecutive episodes and average the reward of the agent on these groups.
+Using similar codes as what you've seen in `__main__`, we are going to run your agent on a randomly sampled environment and compare it's performance to our solution. Performance is then measured by running an experiment of 50000 episodes using your implementation. We then divide the sequence of episodes into groups of consecutive 1000 episodes and average the reward of the agent on these groups for evaluation. 
 
 ### Unit test marking
+#### Distributing the probabilities
+One thing that you need to be careful about in Wolf-PHC is  how you update your policy. **In this case, when subtracting deltas from some of the actions and redistributing it to others, follow this rule:**
+
+- Following point (d) in Table 2 in the paper, take some share of probabilities from actions that **does not maximize the Q-Values**. However, take them proportionately to the current probabilities of these actions. **As an example**, let's say your delta is 0.1 and there are two actions that does not maximise the Q-Values, **each with current probability 0.1 and 0.2 respectively**. Then, you need to subtract **0.1/3.0 and 0.2/3.0** respectively.
+
+- You need to assign the subtracted probabilities from actions that do not maximise the Q-Values into actions that maximise Q(s,a). In this case, split the sibtracted probability equally among the actions that maximise Q(s,a). Let's say you have 2 actions that maximise **Q(s,a)** and the total probability subtracted is 0.1. Then each of these actions should receive an increase of 0.05 in their probability.
+
+Under these constraints, it is guaranteed that the probability will be constrained to a valid probability distribution. And by using the first point, this prevents an actions' probability from being zeroed out unless delta becomes too large.
+
+#### Desired Outputs
 We compare the results of updates from `learn()`, `calculateAveragePolicyUpdate()`, and `calculatePolicyUpdate()` for unit testing.
+
+As an example, let's say that the agent is exposed to the following sequence of experience:
+```
+Timestep, State, Agent 1 Action, Agent 2 Action, Agent 1 Reward, Agent 2 Reward, Next State
+1, [[[1,1],[1,3]], [1,3] ,[2,3]], MOVE_UP, MOVE_RIGHT, -0.4, -0.4, [[[1,0],[2,3]], [2,3] ,[2,3]]
+2, [[[1,0],[2,3]], [2,3] ,[2,3]], MOVE_DOWN, MOVE_LEFT, 0.0, 0.0, [[[1,1],[1,3]], [1,3] ,[2,3]]
+3. [[[1,1],[1,3]], [1,3] ,[2,3]], NO_OP, KICK, 0.0, 0.0, ["GOAL", "GOAL"]
+```
+
+Then, the output of `learn()`, `calculateAveragePolicyUpdate()`, and `calculatePolicyUpdate()` should be :
+```
+Timestep, Agent 1 learn() output, Agent 2 learn() output, Agent 1 calculateAveragePolicyUpdate() output, Agent 2 calculateAveragePolicyUpdate() output, Agent 1 calculatePolicyUpdate() Output, Agent 2 calculatePolicyUpdate() Output
+1, Change in Q<[[[1,1],[1,3]], [1,3] ,[2,3]], MOVE_UP>, Change in Q<[[[1,1],[1,3]], [1,3] ,[2,3]], MOVE_RIGHT> 
+2, Change in Q<[[[1,0],[2,3]], [2,3] ,[2,3]], MOVE_DOWN>, Change in Q<[[[1,0],[2,3]], [2,3] ,[2,3]], MOVE_LEFT> 
+3, Change in Q<[[[1,1],[1,3]], [1,3] ,[2,3]], NO_OP>, Change in Q<[[[1,1],[1,3]], [1,3] ,[2,3]], KICK> 
+```
+
+```
+Timestep, Agent 1 calculateAveragePolicyUpdate() output, Agent 2 calculateAveragePolicyUpdate() output
+1, [p_avg('MOVE_UP'), p_avg('MOVE_DOWN'), p_avg('MOVE_LEFT'), p('MOVE_RIGHT'), p_avg('KICK'), p_avg('NO_OP')] at [[[1,1],[1,3]], [1,3] ,[2,3]] for agent 1, [p_avg('MOVE_UP'), p_avg('MOVE_DOWN'), p_avg('MOVE_LEFT'), p('MOVE_RIGHT'), p_avg('KICK'), p_avg('NO_OP')] at [[[1,1],[1,3]], [1,3] ,[2,3]] for agent 2
+2,[p_avg('MOVE_UP'), p_avg('MOVE_DOWN'), p_avg('MOVE_LEFT'), p('MOVE_RIGHT'), p_avg('KICK'), p_avg('NO_OP')] at [[[1,0],[2,3]], [2,3] ,[2,3]] for agent 1, [p_avg('MOVE_UP'), p_avg('MOVE_DOWN'), p_avg('MOVE_LEFT'), p('MOVE_RIGHT'), p_avg('KICK'), p_avg('NO_OP')] at [[[1,0],[2,3]], [2,3] ,[2,3]] for agent 2
+3,[p_avg('MOVE_UP'), p_avg('MOVE_DOWN'), p_avg('MOVE_LEFT'), p('MOVE_RIGHT'), p_avg('KICK'), p_avg('NO_OP')] at [[[1,1],[1,3]], [1,3] ,[2,3]] for agent 1, [p_avg('MOVE_UP'), p_avg('MOVE_DOWN'), p_avg('MOVE_LEFT'), p('MOVE_RIGHT'), p_avg('KICK'), p_avg('NO_OP')] at [[[1,1],[1,3]], [1,3] ,[2,3]] for agent 2
+```
+, and,
+```
+Timestep, Agent 1 calculatePolicyUpdate() output, Agent 2 calculatePolicyUpdate() output
+1, [p('MOVE_UP'), p('MOVE_DOWN'), p('MOVE_LEFT'), p('MOVE_RIGHT'), p_avg('KICK'), p_avg('NO_OP')] at [[[1,1],[1,3]], [1,3] ,[2,3]] for agent 1, [p('MOVE_UP'), p('MOVE_DOWN'), p('MOVE_LEFT'), p('MOVE_RIGHT'), p('KICK'), p('NO_OP')] at [[[1,1],[1,3]], [1,3] ,[2,3]] for agent 2
+2,[p('MOVE_UP'), p('MOVE_DOWN'), p('MOVE_LEFT'), p('MOVE_RIGHT'), p('KICK'), p('NO_OP')] at [[[1,0],[2,3]], [2,3] ,[2,3]] for agent 1, [p('MOVE_UP'), p('MOVE_DOWN'), p('MOVE_LEFT'), p('MOVE_RIGHT'), p('KICK'), p('NO_OP')] at [[[1,0],[2,3]], [2,3] ,[2,3]] for agent 2
+3,[p('MOVE_UP'), p('MOVE_DOWN'), p('MOVE_LEFT'), p('MOVE_RIGHT'), p('KICK'), p('NO_OP')] at [[[1,1],[1,3]], [1,3] ,[2,3]] for agent 1, [p('MOVE_UP'), p('MOVE_DOWN'), p('MOVE_LEFT'), p('MOVE_RIGHT'), p('KICK'), p('NO_OP')] at [[[1,1],[1,3]], [1,3] ,[2,3]] for agent 2
+```
+
