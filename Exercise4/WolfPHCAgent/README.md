@@ -50,15 +50,6 @@ To see how your implemented function interact with each other to train the agent
 Using similar codes as what you've seen in `__main__`, we are going to run your agent on a randomly sampled environment and compare it's performance to our solution. Performance is then measured by running an experiment of 50000 episodes using your implementation. We then divide the sequence of episodes into groups of consecutive 1000 episodes and average the reward of the agent on these groups for evaluation. 
 
 ### Unit test marking
-#### Distributing the probabilities
-One thing that you need to be careful about in Wolf-PHC is  how you update your policy. **In this case, when subtracting deltas from some of the actions and redistributing it to others, follow this rule:**
-
-- Following point (d) in Table 2 in the paper, take some share of probabilities from actions that **does not maximize the Q-Values**. However, take them proportionately to the current probabilities of these actions. **As an example**, let's say your **delta is 0.1** and there are two actions that does not maximise the Q-Values, **each with current probability 0.1 and 0.2 respectively**. Then, you need to subtract **0.1/3.0 and 0.2/3.0** from each action respectively.
-
-- You need to assign the subtracted probabilities from actions that do not maximise the Q-Values into actions that maximise Q(s,a). In this case, split the sibtracted probability equally among the actions that maximise Q(s,a). Let's say you have 2 actions that maximise **Q(s,a)** and the total probability subtracted is 0.1. Then each of these actions should receive an increase of 0.05 in their probability.
-
-Under these constraints, it is guaranteed that the probability will be constrained to a valid probability distribution. And by using the first point, this prevents an actions' probability from being zeroed out unless delta becomes too large.
-
 #### Desired Outputs
 We compare the results of updates from `learn()`, `calculateAveragePolicyUpdate()`, and `calculatePolicyUpdate()` for unit testing.
 
