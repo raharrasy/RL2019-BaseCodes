@@ -1,6 +1,8 @@
 # Exercise 4  - WoLF-PHC
 
-In this task, you are required to implement the WoLF-PHC algorithm ([**Bowling and Veloso, 2001**](http://www.cs.cmu.edu/~mmv/papers/01ijcai-mike.pdf)). Unlike Q-Learning based algorithms that follow a greedy policy update, this algorithm follows a hill climbing approach to train a stochastic policy for agents. However, just like Q-Learning, it relies on a table of state-action values to calculate the updates to the policy. To get a better description of the algorithm, refer to the provided paper.
+In this task, you are required to implement the WoLF-PHC algorithm ([**Bowling and Veloso, 2001**](http://www.cs.cmu.edu/~mmv/papers/01ijcai-mike.pdf)). Unlike Q-Learning based algorithms that follow a greedy policy update, this algorithm follows a hill climbing approach to train a stochastic policy for agents. However, just like Q-Learning, it relies on a table of state-action values to calculate the updates to the policy. To get a better description of the algorithm, refer to the following pseudocode.
+
+![WoLF-PHC Algorithm](images/Wolf.png?raw=true)
 
 ## Specifications
 ### Automarking requirements
