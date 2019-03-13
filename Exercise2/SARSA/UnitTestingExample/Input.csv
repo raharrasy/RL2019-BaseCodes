@@ -1,0 +1,4 @@
+"Timestep Number"|"State"|"Action"|"Reward"|"Next State"|"done"|"status"
+"1"|"[(1,1),(2,1)]"|"DRIBBLE_RIGHT"|"-0.4"|"[(2,1),(2,1)]"|"False"|"0"
+"2"|"[(2,1),(2,1)]"|"DRIBBLE_LEFT"|"0.0"|"[(1,1),(2,1)]"|"False"|"0"
+"3"|"[(1,1),(2,1)]"|"KICK"|"1.0"|"GOAL"|"False"|"1"
