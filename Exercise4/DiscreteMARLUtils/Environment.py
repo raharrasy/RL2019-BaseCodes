@@ -165,6 +165,8 @@ class DiscreteMARLEnvironment(object):
 		done = (status[0]!="IN_GAME")
 		reward = self.get_reward(status, self.prevState, nextState)
 		self.totalTimesteps -= 1
+		if self.visualize:
+			self.visualizeState(reward)
 		return nextState, reward, [done]*self.agentNums, status
 	
 	def visualizeState(self, reward):
