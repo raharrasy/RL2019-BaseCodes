@@ -1,0 +1,4 @@
+"Timestep"|"Agent 1 learn() output"|"Agent 2 learn() output"
+"1"|"-0.04"|"-0.04" 
+"2"|"0.0"|"0.0"
+"3"|"0.0"|"0.0"
