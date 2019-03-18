@@ -69,7 +69,7 @@ if __name__ == '__main__':
 
 			for agentIdx in range(2):
 				agents[agentIdx].setExperience(agents[agentIdx].toStateRepresentation(stateCopies[agentIdx]), actions[agentIdx], 
-					reward, status, agent.toStateRepresentation(nextObservation))
+					reward, status[agentIdx], agent.toStateRepresentation(nextObservation))
 				learnRes = agents[agentIdx].learn()
 				
 				if not math.isclose(learnRes, float(outputData[timeSteps+1][agentIdx+1]), abs_tol=1e-4):
